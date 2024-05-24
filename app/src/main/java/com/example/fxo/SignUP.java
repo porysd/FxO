@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class SignUP extends AppCompatActivity {
 
-    TextView sUp;
+    TextView sUp, logIn;
     Button signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class SignUP extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
 
-        sUp = findViewById(R.id.textView);
+        sUp = findViewById(R.id.sign_up);
         String rawAppName = getIntent().getStringExtra("SIGNUP");
         sUp.setText(rawAppName);
 
@@ -30,6 +30,17 @@ public class SignUP extends AppCompatActivity {
         signUp.setOnClickListener(View ->{
 
             Intent intent = new Intent(this, LogIN.class);
+
+            String bckLogIn = "QUIZZLER";
+
+            intent.putExtra("LOGIN", bckLogIn);
+            startActivity(intent);
+
+        });
+        logIn = findViewById(R.id.log_in);
+
+        logIn.setOnClickListener(View -> {
+            Intent intent = new Intent (this, LogIN.class);
 
             String bckLogIn = "QUIZZLER";
 
