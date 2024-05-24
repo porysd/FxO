@@ -88,19 +88,19 @@
 
     <TextView
         android:id="@+id/sign_up_link"
-        android:layout_width="242dp"
+        android:layout_width="87dp"
         android:layout_height="23dp"
         android:layout_gravity="center_horizontal"
-        android:text="Don't have an account? Sign up here."
-        android:textColor="#0B0A0A"
+        android:text="Sign up here."
+        android:textColor="#980808"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.701"
+        app:layout_constraintHorizontal_bias="0.849"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="0.781" />
 
     <CheckBox
         android:id="@+id/remember_me"
@@ -129,5 +129,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.522" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="148dp"
+        android:layout_height="23dp"
+        android:text="Don't have an account?"
+        android:textColor="#0B0A0A"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.387"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.781" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
