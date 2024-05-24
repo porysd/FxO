@@ -1,7 +1,9 @@
 package com.example.fxo;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
+import android.content.Intent;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class SignUP extends AppCompatActivity {
 
     TextView sUp;
+    Button signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,5 +24,19 @@ public class SignUP extends AppCompatActivity {
         sUp = findViewById(R.id.textView);
         String rawAppName = getIntent().getStringExtra("SIGNUP");
         sUp.setText(rawAppName);
+
+        signUp = findViewById(R.id.btnSUP);
+
+        signUp.setOnClickListener(View ->{
+
+            Intent intent = new Intent(this, LogIN.class);
+
+            String bckLogIn = "QUIZZLER";
+
+            intent.putExtra("LOGIN", bckLogIn);
+            startActivity(intent);
+
+        });
+
     }
 }
