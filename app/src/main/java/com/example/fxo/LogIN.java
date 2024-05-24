@@ -1,14 +1,19 @@
 package com.example.fxo;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.text.style.ForegroundColorSpan;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +23,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class LogIN extends AppCompatActivity {
 
-    TextView appName;
+    TextView appName, signUp;
 
     Button logIN;
     EditText username, password;
@@ -36,6 +41,18 @@ public class LogIN extends AppCompatActivity {
         logIN = findViewById(R.id.login_button);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
+
+        signUp = findViewById(R.id.sign_up_link);
+
+        signUp.setOnClickListener(View -> {
+            Intent intent = new Intent (this, SignUP.class);
+
+            String signup = "QUIZZLER";
+
+            intent.putExtra("SIGNUP", signup);
+            startActivity(intent);
+
+        });
 
         rememberMe = findViewById(R.id.remember_me);
 
