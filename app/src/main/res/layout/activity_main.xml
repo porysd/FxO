@@ -12,23 +12,22 @@
 
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="239dp"
-        android:layout_height="92dp"
+        android:layout_width="219dp"
+        android:layout_height="85dp"
         android:layout_gravity="center_horizontal"
         android:shadowColor="#86808080"
         android:shadowDx="0"
         android:shadowDy="50"
         android:shadowRadius="10"
-        android:text="AIM HIGH"
+        android:text="ECLIPSE"
         android:textColor="#FFFFFF"
-        android:textSize="50sp"
+        android:textSize="55sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.204" />
-
+        app:layout_constraintVertical_bias="0.195" />
 
     <TextView
         android:id="@+id/textViewSubtitle"
