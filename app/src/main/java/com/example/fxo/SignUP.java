@@ -31,7 +31,7 @@ public class SignUP extends AppCompatActivity {
 
             Intent intent = new Intent(this, LogIN.class);
 
-            String bckLogIn = "QUIZZLER";
+            String bckLogIn = "ECLIPSE";
 
             intent.putExtra("LOGIN", bckLogIn);
             startActivity(intent);
@@ -42,7 +42,7 @@ public class SignUP extends AppCompatActivity {
         logIn.setOnClickListener(View -> {
             Intent intent = new Intent (this, LogIN.class);
 
-            String bckLogIn = "QUIZZLER";
+            String bckLogIn = "ECLIPSE";
 
             intent.putExtra("LOGIN", bckLogIn);
             startActivity(intent);

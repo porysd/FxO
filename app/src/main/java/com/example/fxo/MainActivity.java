@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         getStarted.setOnClickListener(View -> {
             Intent intent = new Intent(this, LogIN.class);
 
-            String login = "QUIZZLER";
+            String login = "ECLIPSE";
 
             intent.putExtra("LOGIN", login);
             startActivity(intent);

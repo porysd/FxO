@@ -47,7 +47,7 @@ public class LogIN extends AppCompatActivity {
         signUp.setOnClickListener(View -> {
             Intent intent = new Intent (this, SignUP.class);
 
-            String signup = "QUIZZLER";
+            String signup = "ECLIPSE";
 
             intent.putExtra("SIGNUP", signup);
             startActivity(intent);
