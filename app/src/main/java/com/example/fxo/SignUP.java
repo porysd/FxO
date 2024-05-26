@@ -2,18 +2,19 @@ package com.example.fxo;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class SignUP extends AppCompatActivity {
-
+    DatabaseHelper userDB;
     TextView sUp, logIn;
+
+    EditText firstName, lastName, birthDate, contactNo, userName, password;
     Button signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,16 +26,50 @@ public class SignUP extends AppCompatActivity {
         String rawAppName = getIntent().getStringExtra("SIGNUP");
         sUp.setText(rawAppName);
 
+        userName = findViewById(R.id.usernames);
+        password = findViewById(R.id.passwords);
+        firstName = findViewById(R.id.firstname);
+        lastName = findViewById(R.id.lastname);
+        birthDate = findViewById(R.id.birthdates);
+        contactNo = findViewById(R.id.phones);
+        userDB = new DatabaseHelper(this);
+
         signUp = findViewById(R.id.btnSUP);
 
         signUp.setOnClickListener(View ->{
 
-            Intent intent = new Intent(this, LogIN.class);
+            String user = userName.getText().toString();
+            String pass = password.getText().toString();
+            String fn = firstName.getText().toString();
+            String ln = lastName.getText().toString();
+            String bd = birthDate.getText().toString();
+            String cn = contactNo.getText().toString();
 
-            String bckLogIn = "ECLIPSE";
+            if(user.equals("") || pass.equals("") || fn.equals("") || ln.equals("") || bd.equals("") || cn.equals("")){
+                Toast.makeText(this, "Put input in everything!!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Boolean checkuser = userDB.checkusername(user);
+                if(!checkuser){
+                    Boolean insert = userDB.insertData(user, pass, fn, ln, bd, cn);
+                    if(insert){
+                        Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show();
 
-            intent.putExtra("LOGIN", bckLogIn);
-            startActivity(intent);
+                        // random pot shit
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        String bckLogIn = "ECLIPSE";
+                        intent.putExtra("LOGIN", bckLogIn);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(this, "Register Failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(this, "User already exist!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
 
         });
         logIn = findViewById(R.id.log_in);
@@ -49,5 +84,13 @@ public class SignUP extends AppCompatActivity {
 
         });
 
+    }
+    public void refresh(){
+        firstName.setText("");
+        lastName.setText("");
+        birthDate.setText("");
+        contactNo.setText("");
+        userName.setText("");
+        password.setText("");
     }
 }
