@@ -2,27 +2,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Base.Theme.FxO"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:background="@drawable/gradient"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="188dp"
-        android:layout_height="58dp"
+        android:layout_width="239dp"
+        android:layout_height="92dp"
         android:layout_gravity="center_horizontal"
-        android:text="QUIZZLER"
+        android:shadowColor="#86808080"
+        android:shadowDx="0"
+        android:shadowDy="50"
+        android:shadowRadius="10"
+        android:text="AIM HIGH"
         android:textColor="#FFFFFF"
-        android:textSize="40sp"
+        android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.204" />
+
 
     <TextView
         android:id="@+id/textViewSubtitle"
@@ -62,15 +68,15 @@
 
     <TextView
         android:id="@+id/textViewDescription"
-        android:layout_width="200dp"
-        android:layout_height="95dp"
+        android:layout_width="232dp"
+        android:layout_height="97dp"
         android:layout_gravity="center_horizontal"
-        android:text="Create quizzes, build flashcards, and master your subjects."
+        android:text="Create assessments, build flashcards, and master your subjects."
         android:textColor="#000000"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintHorizontal_bias="0.391"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.804" />

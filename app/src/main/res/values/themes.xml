@@ -5,5 +5,10 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="NavButton" parent="Theme.MaterialComponents.NoActionBar">
+
+
+    </style>
+
     <style name="Theme.FxO" parent="Base.Theme.FxO" />
 </resources>
