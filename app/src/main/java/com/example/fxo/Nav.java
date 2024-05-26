@@ -1,6 +1,14 @@
 package com.example.fxo;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +17,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.fxo.databinding.ActivityNavBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class Nav extends AppCompatActivity {
 
+    FloatingActionButton fab;
     @NonNull ActivityNavBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +30,7 @@ public class Nav extends AppCompatActivity {
         binding = ActivityNavBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HOME());
+
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -37,11 +48,53 @@ public class Nav extends AppCompatActivity {
             return true;
         });
 
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Call method to show dialog
+                showDialog();
+            }
+        });
+
     }
     private void replaceFragment(Fragment fragment){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.main,fragment);
         ft.commit();
+    }
+
+    private void showDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.bottomsheetlayout);
+
+        LinearLayout fc = dialog.findViewById(R.id.Flashcards);
+        LinearLayout e = dialog.findViewById(R.id.Events);
+
+        fc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Toast.makeText(Nav.this, "Flashcards", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        e.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Toast.makeText(Nav.this, "Events", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+        // Set dialog parameters (width, height, background, animations, gravity) as needed
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 }
