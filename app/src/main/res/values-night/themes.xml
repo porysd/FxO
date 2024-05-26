@@ -5,8 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 
-    <style name="NavButton" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="NavButton" parent="Theme.MaterialComponents.NoActionBar"/>
 
 
-    </style>
 </resources>

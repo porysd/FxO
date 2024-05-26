@@ -54,15 +54,15 @@ public class LogIN extends AppCompatActivity {
             String user = username.getText().toString();
             String pass = password.getText().toString();
 
-            if(user.equals("") || pass.equals("")){
-                Toast.makeText(this, "Put input in name and password!!", Toast.LENGTH_SHORT).show();
+            if(user.isEmpty() || pass.isEmpty()){
+                Toast.makeText(this, "Put input in username and password!!", Toast.LENGTH_SHORT).show();
             }
             else{
                 boolean checkuserpass = userDB.checkusernamepassword(user,pass);
                 if(checkuserpass){
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
-
-
+                    Intent i = new Intent(getApplicationContext(), Nav.class);
+                    startActivity(i);
                 }
                 else{
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();

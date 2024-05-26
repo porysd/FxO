@@ -1,7 +1,11 @@
 package com.example.fxo;
 
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Intent;
@@ -16,6 +20,7 @@ public class SignUP extends AppCompatActivity {
 
     EditText firstName, lastName, birthDate, contactNo, userName, password;
     Button signUp;
+    CheckBox show;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,7 @@ public class SignUP extends AppCompatActivity {
         contactNo = findViewById(R.id.phones);
         userDB = new DatabaseHelper(this);
 
+        show = findViewById(R.id.checkBox);
         signUp = findViewById(R.id.btnSUP);
 
         signUp.setOnClickListener(View ->{
@@ -71,6 +77,17 @@ public class SignUP extends AppCompatActivity {
             }
 
 
+        });
+
+        show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
         });
         logIn = findViewById(R.id.log_in);
 
