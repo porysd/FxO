@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/lsbackground"
+
     tools:context=".LogIN">
 
     <TextView
@@ -30,8 +31,10 @@
         android:layout_height="56dp"
         android:drawablePadding="10dp"
         android:hint="Username"
+
+        android:elevation="2dp"
         android:padding="15dp"
-        android:shadowRadius="90"
+        android:background="@drawable/etdesign"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.725"
@@ -104,7 +107,7 @@
         app:layout_constraintVertical_bias="0.781" />
 
     <CheckBox
-        android:id="@+id/remember_me"
+        android:id="@+id/show_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Show password"
@@ -122,6 +125,7 @@
         android:layout_height="58dp"
         android:drawablePadding="10dp"
         android:hint="Password"
+        android:background="@drawable/etdesign"
         android:inputType="textPassword"
         android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

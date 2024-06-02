@@ -3,6 +3,7 @@
 
     <item android:id="@+id/btnhome"
         android:title="Home"
+        android:iconTint="@color/white"
         android:icon="@drawable/baseline_home_24"/>
 
     <item android:id="@+id/btnfolder"

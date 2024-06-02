@@ -15,7 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUP extends AppCompatActivity {
-    DatabaseHelper userDB;
+    DatabaseHelper Users_DB;
     TextView sUp, logIn;
 
     EditText firstName, lastName, birthDate, contactNo, userName, password;
@@ -37,13 +37,12 @@ public class SignUP extends AppCompatActivity {
         lastName = findViewById(R.id.lastname);
         birthDate = findViewById(R.id.birthdates);
         contactNo = findViewById(R.id.phones);
-        userDB = new DatabaseHelper(this);
+        Users_DB = new DatabaseHelper(this);
 
         show = findViewById(R.id.checkBox);
         signUp = findViewById(R.id.btnSUP);
 
-        signUp.setOnClickListener(View ->{
-
+        signUp.setOnClickListener(View -> {
             String user = userName.getText().toString();
             String pass = password.getText().toString();
             String fn = firstName.getText().toString();
@@ -51,32 +50,31 @@ public class SignUP extends AppCompatActivity {
             String bd = birthDate.getText().toString();
             String cn = contactNo.getText().toString();
 
-            if(user.equals("") || pass.equals("") || fn.equals("") || ln.equals("") || bd.equals("") || cn.equals("")){
+            if (user.isEmpty() || pass.isEmpty() || fn.isEmpty() || ln.isEmpty() || bd.isEmpty() || cn.isEmpty()) {
                 Toast.makeText(this, "Put input in everything!!", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                Boolean checkuser = userDB.checkusername(user);
-                if(!checkuser){
-                    Boolean insert = userDB.insertData(user, pass, fn, ln, bd, cn);
-                    if(insert){
-                        Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show();
+            } else {
+                Boolean checkuser = Users_DB.usernameAlreadyExisting(user);
+                if (!checkuser) {
+                    Boolean insert = Users_DB.insertUserData(user, pass, fn, ln, bd, cn);
+                    if (insert) {
+                        int userID = Users_DB.getUserID(user);
+                        Users_DB.insertFolderData("Prelim", userID);
+                        Users_DB.insertFolderData("Midterms", userID);
+                        Users_DB.insertFolderData("Prefinals", userID);
+                        Users_DB.insertFolderData("Finals", userID);
 
-                        // random pot shit
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        String bckLogIn = "ECLIPSE";
+                        Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), LogIN.class);
+                        String bckLogIn = "QUIZZLER";
                         intent.putExtra("LOGIN", bckLogIn);
                         startActivity(intent);
-                    }
-                    else{
+                    } else {
                         Toast.makeText(this, "Register Failed", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else{
-                    Toast.makeText(this, "User already exist!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "User already exists!", Toast.LENGTH_SHORT).show();
                 }
             }
-
-
         });
 
         show.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -98,16 +96,6 @@ public class SignUP extends AppCompatActivity {
 
             intent.putExtra("LOGIN", bckLogIn);
             startActivity(intent);
-
         });
-
-    }
-    public void refresh(){
-        firstName.setText("");
-        lastName.setText("");
-        birthDate.setText("");
-        contactNo.setText("");
-        userName.setText("");
-        password.setText("");
     }
 }

@@ -1,64 +1,84 @@
 package com.example.fxo;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HOME#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HOME extends Fragment {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class HOME extends Fragment implements RecyclerViewInterface {
+    RecyclerView recyclerView;
+    FolderAdapter flashcardfolderAdapter;
+    List<String> myFolder;
+    List<Integer> myFolderID;
+    DatabaseHelper Users_DB;
+    TextView textView2;
+    int userID;
 
-    public HOME() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HOME.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HOME newInstance(String param1, String param2) {
-        HOME fragment = new HOME();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_h_o_m_e, container, false);
+
+        // Initialize UI components
+        recyclerView = view.findViewById(R.id.recycler);
+        textView2 = view.findViewById(R.id.textView2);
+        userID = getActivity().getIntent().getIntExtra("USERID", 0);
+        textView2.setText("Users ID: " + userID);
+
+        // Initialize database helper and lists
+        Users_DB = new DatabaseHelper(getActivity());
+        myFolder = new ArrayList<>();
+        myFolderID = new ArrayList<>();
+
+        // Set up RecyclerView
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(lm);
+        flashcardfolderAdapter = new FolderAdapter(getActivity(), myFolder, this);
+        recyclerView.setAdapter(flashcardfolderAdapter);
+
+        // Fetch data from database
+        getData();
+
+        return view;
+    }
+
+    // Method to fetch data from database
+    private void getData() {
+        Cursor cursor = Users_DB.getFolders();
+        if (cursor.getCount() == 0) {
+            Toast.makeText(getActivity(), "No db exists", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            while (cursor.moveToNext()) {
+                if(cursor.getInt(2) == userID){
+                    myFolderID.add(cursor.getInt(0));
+                    myFolder.add(cursor.getString(1));
+                }
+            }
         }
+        cursor.close();
     }
 
+    // RecyclerView item click listener
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_h_o_m_e, container, false);
+    public void onItemClick(int position) {
+        Intent i = new Intent(getActivity(), FlashcardFolderActivity.class);
+        i.putExtra("FOLDERID", myFolderID.get(position));
+        i.putExtra("FOLDERNAME", myFolder.get(position));
+        i.putExtra("USERID", userID);
+        startActivity(i);
     }
 }

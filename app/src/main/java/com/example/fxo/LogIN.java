@@ -15,70 +15,66 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LogIN extends AppCompatActivity {
-    DatabaseHelper userDB;
+
+    DatabaseHelper Users_DB;
     TextView appName, signUp;
-    Button logIN;
+    Button logIn;
     EditText username, password;
-    CheckBox rememberMe;
+    CheckBox showPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_log_in);
 
+        // Initialize UI components
         appName = findViewById(R.id.textView);
-        String rawAppName = getIntent().getStringExtra("LOGIN");
-        appName.setText(rawAppName);
-
-        userDB = new DatabaseHelper(this);
-
-        logIN = findViewById(R.id.login_button);
+        logIn = findViewById(R.id.login_button);
         username = findViewById(R.id.usernames);
         password = findViewById(R.id.password);
-
         signUp = findViewById(R.id.sign_up_link);
+        showPassword = findViewById(R.id.show_password);
 
-        signUp.setOnClickListener(View -> {
-            Intent intent = new Intent (this, SignUP.class);
+        // Initialize DatabaseHelper
+        Users_DB = new DatabaseHelper(this);
 
-            String signup = "ECLIPSE";
-
+        // Handle sign up link click
+        signUp.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SignUP.class);
+            String signup = "QUIZZLER";
             intent.putExtra("SIGNUP", signup);
             startActivity(intent);
-
         });
 
-        rememberMe = findViewById(R.id.remember_me);
-
-        logIN.setOnClickListener(View -> {
+        // Handle login button click
+        logIn.setOnClickListener(v -> {
             String user = username.getText().toString();
             String pass = password.getText().toString();
 
-            if(user.isEmpty() || pass.isEmpty()){
-                Toast.makeText(this, "Put input in username and password!!", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                boolean checkuserpass = userDB.checkusernamepassword(user,pass);
-                if(checkuserpass){
+            if (user.isEmpty() || pass.isEmpty()) {
+                Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show();
+            } else {
+                Integer userID = Users_DB.getUserIDIfMatch(user, pass);
+                if (userID != null) {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), Nav.class);
+                    i.putExtra("USERID", userID); // Pass the userId to the next activity
                     startActivity(i);
-                }
-                else{
+                } else {
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        rememberMe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else {
-                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
+
+
+        // Show password in checkbox
+        showPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                password.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
-
     }
 }

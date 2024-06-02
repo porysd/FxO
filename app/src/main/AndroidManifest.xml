@@ -13,6 +13,18 @@
         android:theme="@style/Theme.FxO"
         tools:targetApi="31">
         <activity
+            android:name=".AddFlashcardFolderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddFlashcardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FlashcardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FlashcardFolderActivity"
+            android:exported="false" />
+        <activity
             android:name=".Nav"
             android:exported="false" />
         <activity
