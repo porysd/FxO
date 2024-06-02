@@ -36,7 +36,7 @@ public class HOME extends Fragment implements RecyclerViewInterface {
         recyclerView = view.findViewById(R.id.recycler);
         textView2 = view.findViewById(R.id.textView2);
         userID = getActivity().getIntent().getIntExtra("USERID", 0);
-        textView2.setText("Users ID: " + userID);
+        textView2.setText("Users Account: " + userID);
 
         // Initialize database helper and lists
         Users_DB = new DatabaseHelper(getActivity());
