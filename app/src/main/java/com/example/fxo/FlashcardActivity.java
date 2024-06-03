@@ -123,6 +123,27 @@ public class FlashcardActivity extends AppCompatActivity {
 
         nextBtn.setOnClickListener(v -> {
 
+            flip.setVisibility(View.VISIBLE);
+
+            prevBtn.setVisibility(View.GONE);
+            nextBtn.setVisibility(View.GONE);
+            easyBtn.setVisibility(View.GONE);
+            backToQuestion.setVisibility(View.GONE);
+
+            if (isFront) {
+                frontAnim.setTarget(frontCard);
+                backBtnAnim.setTarget(backCard);
+                frontAnim.start();
+                backBtnAnim.start();
+                isFront = true;
+            } else {
+                frontAnim.setTarget(backCard);
+                backBtnAnim.setTarget(frontCard);
+                backBtnAnim.start();
+                frontAnim.start();
+                isFront = false;
+            }
+
             if (index < myQuestions.size() - 1) {
                 index++;
                 frontCard.setText(myQuestions.get(index));
@@ -134,6 +155,27 @@ public class FlashcardActivity extends AppCompatActivity {
             }
         });
         prevBtn.setOnClickListener(v -> {
+
+            flip.setVisibility(View.VISIBLE);
+
+            prevBtn.setVisibility(View.GONE);
+            nextBtn.setVisibility(View.GONE);
+            easyBtn.setVisibility(View.GONE);
+            backToQuestion.setVisibility(View.GONE);
+
+            if (isFront) {
+                frontAnim.setTarget(frontCard);
+                backBtnAnim.setTarget(backCard);
+                frontAnim.start();
+                backBtnAnim.start();
+                isFront = true;
+            } else {
+                frontAnim.setTarget(backCard);
+                backBtnAnim.setTarget(frontCard);
+                backBtnAnim.start();
+                frontAnim.start();
+                isFront = false;
+            }
 
             if (index > 0) {
                 index--;
