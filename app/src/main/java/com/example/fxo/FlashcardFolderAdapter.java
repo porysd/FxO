@@ -1,12 +1,20 @@
 package com.example.fxo;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -16,11 +24,13 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
     Context context;
     List<String> folders;
     String folder;
+    DatabaseHelper Users_DB;
 
     public FlashcardFolderAdapter(Context context, List<String> folders, RecyclerViewInterface recyclerViewInterface){
         this.context = context;
         this.folders = folders;
         this.recyclerViewInterface = recyclerViewInterface;
+        Users_DB = new DatabaseHelper(context);
     }
 
     @NonNull
@@ -43,10 +53,12 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView name;
+        ImageButton moreOptionsButton;
         public ViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
             name = itemView.findViewById(R.id.flashcardfolder_name);
+            moreOptionsButton = itemView.findViewById(R.id.moreOptionsButton);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -59,6 +71,64 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
                     }
                 }
             });
+            //Triple Dot Button
+            moreOptionsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PopupMenu popup = new PopupMenu(itemView.getContext(), v);
+                    MenuInflater inflater = popup.getMenuInflater();
+                    inflater.inflate(R.menu.menu_options, popup.getMenu());
+
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        String folderName = folders.get(position);
+                        int flashcardID = Users_DB.getFolderIDByName(folderName);
+
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem menuItem) {
+                                int itemId = menuItem.getItemId();
+                                if (itemId == R.id.menu_add) {
+                                    Intent intent = new Intent(FlashcardFolderAdapter.this.context, AddFlashcardActivity.class);
+                                    intent.putExtra("FOLDER_NAME", folderName);
+                                    context.startActivity(intent);
+                                    return true;
+                                } else if (itemId == R.id.menu_edit) {
+                                    // Handle edit action
+                                    Toast.makeText(FlashcardFolderAdapter.this.context, "Edit action clicked", Toast.LENGTH_SHORT).show();
+                                    return true;
+                                } else if (itemId == R.id.menu_delete) {
+                                    confirmDelete(flashcardID, position);
+                                    return true;
+                                }
+                                return false;
+                            }
+                        });
+                        popup.show();
+                    }
+                }
+            });
         }
+    }
+    private void confirmDelete(int flashcardID, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirm Delete");
+        builder.setMessage("Are you sure you want to delete this record?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                boolean deleted = Users_DB.deleteData(String.valueOf(flashcardID));
+                if (deleted) {
+                    folders.remove(position);
+                    notifyItemRemoved(position);
+                    Toast.makeText(context, "Record deleted successfully", Toast.LENGTH_SHORT).show();
+                    Users_DB.resetAutoIncrement();
+                } else {
+                    Toast.makeText(context, "Failed to delete record", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
     }
 }
