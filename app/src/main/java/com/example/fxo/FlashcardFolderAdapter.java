@@ -24,11 +24,16 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
     Context context;
     List<String> folders;
     String folder;
+    String folderName;
+    int folderID, userID;
     DatabaseHelper Users_DB;
 
-    public FlashcardFolderAdapter(Context context, List<String> folders, RecyclerViewInterface recyclerViewInterface){
+    public FlashcardFolderAdapter(Context context, List<String> folders, int folderID, int userID, String folderName, RecyclerViewInterface recyclerViewInterface){
         this.context = context;
         this.folders = folders;
+        this.folderID = folderID;
+        this.userID = userID;
+        this.folderName = folderName;
         this.recyclerViewInterface = recyclerViewInterface;
         Users_DB = new DatabaseHelper(context);
     }
@@ -81,17 +86,20 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
 
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
-                        String folderName = folders.get(position);
-                        int flashcardID = Users_DB.getFolderIDByName(folderName);
+                        String foldersName = folders.get(position);
+                        int flashcardID = Users_DB.getFolderIDByName(foldersName);
 
                         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
                                 int itemId = menuItem.getItemId();
                                 if (itemId == R.id.menu_add) {
-                                    Intent intent = new Intent(FlashcardFolderAdapter.this.context, AddFlashcardActivity.class);
-                                    intent.putExtra("FOLDER_NAME", folderName);
-                                    context.startActivity(intent);
+                                    Intent i = new Intent(FlashcardFolderAdapter.this.context, AddFlashcardActivity.class);
+                                    i.putExtra("FOLDERID", folderID);
+                                    i.putExtra("USERID", userID);
+                                    i.putExtra("FOLDERNAME", folderName);
+                                    i.putExtra("FLASHCARDFOLDERID", position);
+                                    context.startActivity(i);
                                     return true;
                                 } else if (itemId == R.id.menu_edit) {
                                     // Handle edit action

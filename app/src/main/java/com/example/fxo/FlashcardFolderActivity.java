@@ -48,7 +48,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
         // Set up RecyclerView
         LinearLayoutManager lm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(lm);
-        flashcardFolderAdapter = new FlashcardFolderAdapter(this, myTitle, this);
+        flashcardFolderAdapter = new FlashcardFolderAdapter(this, myTitle, folderID, userID, folderName, this);
         recyclerView.setAdapter(flashcardFolderAdapter);
 
         // Get folder ID and name from intent
@@ -59,7 +59,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
 
         // Button click listener for adding flashcards
         addFlashcardButton.setOnClickListener(v -> {
-            Intent i = new Intent(FlashcardFolderActivity.this, AddFlashcardFolderActivity.class);
+            Intent i = new Intent(FlashcardFolderActivity.this, AddFlashcardActivity.class);
             i.putExtra("FOLDERID", folderID);
             i.putExtra("FOLDERNAME", folderName);
             i.putExtra("USERID", userID);
