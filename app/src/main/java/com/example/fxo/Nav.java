@@ -1,6 +1,7 @@
 package com.example.fxo;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -77,6 +78,8 @@ public class Nav extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                Intent i = new Intent(Nav.this, AddFlashcardFolderActivity.class);
+                startActivity(i);
                 Toast.makeText(Nav.this, "Flashcards", Toast.LENGTH_SHORT).show();
 
             }

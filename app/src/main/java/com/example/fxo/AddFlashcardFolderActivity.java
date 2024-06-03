@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
     EditText flashcardTitle, subjectName;
     Spinner spinnerFolders;
     Button cancelBtn, finishBtn;
+    ImageButton backBtn;
 
     // Database helper
     DatabaseHelper Users_DB;
@@ -51,6 +53,7 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
         spinnerFolders = findViewById(R.id.spinner_folders);
         cancelBtn = findViewById(R.id.cancel_btn);
         finishBtn = findViewById(R.id.finish_btn);
+        backBtn = findViewById(R.id.back_btn);
         userID = getIntent().getIntExtra("USERID", 0);
 
         // Populate spinner with items from the database
@@ -101,6 +104,9 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
                 // No action needed
             }
         });
+
+
+        backBtn.setOnClickListener(view -> finish());
     }
 
     // Method to populate spinner items from the database
