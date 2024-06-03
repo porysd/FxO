@@ -5,7 +5,9 @@ import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +19,9 @@ import java.util.List;
 public class FlashcardActivity extends AppCompatActivity {
     // UI components
     TextView noTableText, frontCard, backCard;
-    Button addFlashcardBtn, nextBtn, prevBtn, backBtn, flip;
+    Button addFlashcardBtn, nextBtn, prevBtn, flip, backToQuestion, easyBtn;
+
+    ImageButton backBtn;
 
     // Database helper
     DatabaseHelper Users_DB;
@@ -46,6 +50,8 @@ public class FlashcardActivity extends AppCompatActivity {
         flip = findViewById(R.id.flip_btn);
         frontCard = findViewById(R.id.front_card);
         backCard = findViewById(R.id.back_card);
+        backToQuestion = findViewById(R.id.back_to_question);
+        easyBtn = findViewById(R.id.easy_btn);
 
         // Initialize data lists
         myQuestions = new ArrayList<>();
@@ -81,8 +87,42 @@ public class FlashcardActivity extends AppCompatActivity {
             i.putExtra("USERID", userID);
             startActivity(i);
         });
+        nextBtn.setVisibility(View.GONE);
+        prevBtn.setVisibility(View.GONE);
+        easyBtn.setVisibility(View.GONE);
+        backToQuestion.setVisibility(View.GONE);
+
+        backToQuestion.setOnClickListener(view -> {
+
+            flip.setVisibility(View.VISIBLE);
+
+            prevBtn.setVisibility(View.GONE);
+            nextBtn.setVisibility(View.GONE);
+            easyBtn.setVisibility(View.GONE);
+            backToQuestion.setVisibility(View.GONE);
+
+            if (isFront) {
+                frontAnim.setTarget(frontCard);
+                backBtnAnim.setTarget(backCard);
+                frontAnim.start();
+                backBtnAnim.start();
+                isFront = true;
+            } else {
+                frontAnim.setTarget(backCard);
+                backBtnAnim.setTarget(frontCard);
+                backBtnAnim.start();
+                frontAnim.start();
+                isFront = false;
+            }
+        });
+
+        easyBtn.setOnClickListener(view -> {
+
+        });
+
 
         nextBtn.setOnClickListener(v -> {
+
             if (index < myQuestions.size() - 1) {
                 index++;
                 frontCard.setText(myQuestions.get(index));
@@ -93,8 +133,8 @@ public class FlashcardActivity extends AppCompatActivity {
                 }
             }
         });
-
         prevBtn.setOnClickListener(v -> {
+
             if (index > 0) {
                 index--;
                 frontCard.setText(myQuestions.get(index));
@@ -125,6 +165,14 @@ public class FlashcardActivity extends AppCompatActivity {
         backBtnAnim = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(), R.animator.back_animator);
 
         flip.setOnClickListener(view -> {
+
+            flip.setVisibility(View.GONE);
+
+            prevBtn.setVisibility(View.VISIBLE);
+            nextBtn.setVisibility(View.VISIBLE);
+            easyBtn.setVisibility(View.VISIBLE);
+            backToQuestion.setVisibility(View.VISIBLE);
+
             if (isFront) {
                 frontAnim.setTarget(frontCard);
                 backBtnAnim.setTarget(backCard);

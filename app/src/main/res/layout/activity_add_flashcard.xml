@@ -9,42 +9,67 @@
 
     <Button
         android:id="@+id/add_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="405dp"
+        android:layout_width="149dp"
+        android:layout_height="62dp"
+        android:background="@color/black"
         android:text="Add"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textSize="23dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/finish_btn"
-        app:layout_constraintTop_toBottomOf="@+id/answerText"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.804" />
 
     <Button
         android:id="@+id/finish_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="96dp"
-        android:layout_marginBottom="405dp"
+        android:layout_width="149dp"
+        android:layout_height="62dp"
+        android:background="#CDCDCD"
         android:text="Finish"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/black"
+        android:textSize="23dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answerText"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.914" />
+
+    <Button
+        android:id="@+id/bck_btn"
+        android:layout_width="149dp"
+        android:layout_height="62dp"
+        android:background="#CDCDCD"
+        android:text="BACK"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/black"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.802" />
 
     <EditText
         android:id="@+id/questionText"
         android:layout_width="281dp"
         android:layout_height="41dp"
         android:layout_marginStart="87dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="132dp"
         android:layout_marginEnd="115dp"
         android:ems="10"
         android:hint="Front/Question"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.319"
+        app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,13 +78,39 @@
         android:layout_width="283dp"
         android:layout_height="42dp"
         android:layout_marginStart="88dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="114dp"
         android:ems="10"
         android:hint="Back/Answer"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.324"
+        app:layout_constraintHorizontal_bias="0.369"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionText" />
+
+    <LinearLayout
+        android:layout_width="395dp"
+        android:layout_height="83dp"
+        android:background="@color/black"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="2dp"
+        tools:ignore="MissingConstraints">
+
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="267dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:text="FLASHCARDS"
+            android:layout_marginLeft="25dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

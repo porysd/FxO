@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AddFlashcardActivity extends AppCompatActivity {
     // UI components
     EditText questionText, answerText;
-    Button addBtn, finishBtn;
+    Button addBtn, finishBtn, bckBtn;
     DatabaseHelper Users_DB;
     int flashcardfolderID, folderID,userID;
     String folderName;
@@ -29,6 +29,7 @@ public class AddFlashcardActivity extends AppCompatActivity {
         questionText = findViewById(R.id.questionText);
         answerText = findViewById(R.id.answerText);
         addBtn = findViewById(R.id.add_btn);
+        bckBtn = findViewById(R.id.bck_btn);
         finishBtn = findViewById(R.id.finish_btn);
 
         // Get flashcard folder ID from intent
@@ -57,6 +58,8 @@ public class AddFlashcardActivity extends AppCompatActivity {
             questionText.setText("");
             answerText.setText("");
         });
+
+        bckBtn.setOnClickListener(view -> finish());
 
         // Set onClick listener for the finish button
         finishBtn.setOnClickListener(view -> {
