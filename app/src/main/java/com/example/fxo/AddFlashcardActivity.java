@@ -61,7 +61,7 @@ public class AddFlashcardActivity extends AppCompatActivity {
         // Set onClick listener for the finish button
         finishBtn.setOnClickListener(view -> {
             // Navigate back to the flashcard folder activity
-            Intent i = new Intent(AddFlashcardActivity.this, FlashcardFolderActivity.class);
+            Intent i = new Intent(AddFlashcardActivity.this, FlashcardActivity.class);
             i.putExtra("FLASHCARDFOLDERID", flashcardfolderID);
             i.putExtra("USERID", userID);
             i.putExtra("FOLDERID", folderID);
