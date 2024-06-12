@@ -102,6 +102,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
         i.putExtra("FLASHCARDFOLDERID", myFlashcardFolderID.get(position));
         i.putExtra("FOLDERID", folderID);
         i.putExtra("FOLDERNAME", folderName);
+        i.putExtra("FLASHCARDTITLE", myTitle.get(position));
         startActivity(i);
     }
 }

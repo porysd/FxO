@@ -18,7 +18,10 @@ import java.util.List;
 
 public class FlashcardActivity extends AppCompatActivity {
     // UI components
-    TextView noTableText, frontCard, backCard;
+    TextView noTableText;
+    TextView frontCard;
+    TextView backCard;
+    TextView fcName;
     Button addFlashcardBtn, nextBtn, prevBtn, flip, backToQuestion, easyBtn;
 
     ImageButton backBtn;
@@ -30,7 +33,7 @@ public class FlashcardActivity extends AppCompatActivity {
     List<String> myQuestions;
     List<String> myAnswers;
     int flashcardfolderID, folderID, index, userID;
-    String folderName;
+    String folderName, flashcardTitle;
 
     // Flip animation
     private AnimatorSet frontAnim, backBtnAnim;
@@ -52,6 +55,7 @@ public class FlashcardActivity extends AppCompatActivity {
         backCard = findViewById(R.id.back_card);
         backToQuestion = findViewById(R.id.back_to_question);
         easyBtn = findViewById(R.id.easy_btn);
+        fcName = findViewById(R.id.fcName);
 
         // Initialize data lists
         myQuestions = new ArrayList<>();
@@ -64,7 +68,9 @@ public class FlashcardActivity extends AppCompatActivity {
         userID = getIntent().getIntExtra("USERID", 0);
         folderID = getIntent().getIntExtra("FOLDERID", 0);
         folderName = getIntent().getStringExtra("FOLDERNAME");
+        flashcardTitle = getIntent().getStringExtra("FLASHCARDTITLE");
 
+        fcName.setText(flashcardTitle);
 
         getData();
 
@@ -87,6 +93,7 @@ public class FlashcardActivity extends AppCompatActivity {
             i.putExtra("USERID", userID);
             startActivity(i);
         });
+
         nextBtn.setVisibility(View.GONE);
         prevBtn.setVisibility(View.GONE);
         easyBtn.setVisibility(View.GONE);
@@ -101,18 +108,12 @@ public class FlashcardActivity extends AppCompatActivity {
             easyBtn.setVisibility(View.GONE);
             backToQuestion.setVisibility(View.GONE);
 
-            if (isFront) {
-                frontAnim.setTarget(frontCard);
-                backBtnAnim.setTarget(backCard);
+            if (!isFront) {
+                frontAnim.setTarget(backCard);
+                backBtnAnim.setTarget(frontCard);
                 frontAnim.start();
                 backBtnAnim.start();
                 isFront = true;
-            } else {
-                frontAnim.setTarget(backCard);
-                backBtnAnim.setTarget(frontCard);
-                backBtnAnim.start();
-                frontAnim.start();
-                isFront = false;
             }
         });
 
@@ -131,27 +132,20 @@ public class FlashcardActivity extends AppCompatActivity {
             backToQuestion.setVisibility(View.GONE);
 
             if (isFront) {
-                frontAnim.setTarget(frontCard);
-                backBtnAnim.setTarget(backCard);
-                frontAnim.start();
-                backBtnAnim.start();
-                isFront = true;
+                index++;
+                if (index < myQuestions.size()) {
+                    frontCard.setText(myQuestions.get(index));
+                    backCard.setText(myAnswers.get(index));
+                    prevBtn.setEnabled(true);
+                    nextBtn.setEnabled(index < myQuestions.size() - 1);
+                }
             } else {
                 frontAnim.setTarget(backCard);
                 backBtnAnim.setTarget(frontCard);
-                backBtnAnim.start();
                 frontAnim.start();
-                isFront = false;
-            }
-
-            if (index < myQuestions.size() - 1) {
-                index++;
-                frontCard.setText(myQuestions.get(index));
-                backCard.setText(myAnswers.get(index));
-                prevBtn.setEnabled(true);
-                if (index == myQuestions.size() - 1) {
-                    nextBtn.setEnabled(false);
-                }
+                backBtnAnim.start();
+                isFront = true;
+                nextBtn.performClick();
             }
         });
         prevBtn.setOnClickListener(v -> {
@@ -164,27 +158,20 @@ public class FlashcardActivity extends AppCompatActivity {
             backToQuestion.setVisibility(View.GONE);
 
             if (isFront) {
-                frontAnim.setTarget(frontCard);
-                backBtnAnim.setTarget(backCard);
-                frontAnim.start();
-                backBtnAnim.start();
-                isFront = true;
+                index--;
+                if (index >= 0) {
+                    frontCard.setText(myQuestions.get(index));
+                    backCard.setText(myAnswers.get(index));
+                    nextBtn.setEnabled(true);
+                    prevBtn.setEnabled(index > 0);
+                }
             } else {
                 frontAnim.setTarget(backCard);
                 backBtnAnim.setTarget(frontCard);
-                backBtnAnim.start();
                 frontAnim.start();
-                isFront = false;
-            }
-
-            if (index > 0) {
-                index--;
-                frontCard.setText(myQuestions.get(index));
-                backCard.setText(myAnswers.get(index));
-                nextBtn.setEnabled(true);
-                if (index == 0) {
-                    prevBtn.setEnabled(false);
-                }
+                backBtnAnim.start();
+                isFront = true;
+                prevBtn.performClick();
             }
         });
 
