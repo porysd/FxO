@@ -5,12 +5,55 @@
     android:layout_height="match_parent"
     tools:context=".CALENDAR">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:background="@color/black"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="2dp">
+        <TextView
+            android:id="@+id/calendarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:paddingLeft="30dp"
+            android:paddingTop="15dp"
+            android:text="CALENDAR"
+            android:textStyle="bold"
+            android:textColorHint="@color/white"
+            android:textSize="35dp" />
+
+    </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="110dp"
+
+        android:background="@drawable/calendar_background"
+        />
+
+    <TextView
+        android:id="@+id/upcomingEvents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UPCOMING EVENTS:"
+        android:textSize="23dp"
+        android:textStyle="bold"
         android:textColor="@color/black"
-        android:text="CALENDAR" />
+        android:layout_marginTop="460dp"
+        android:layout_marginLeft="40dp"/>
+
+    <LinearLayout
+        android:id="@+id/upcomingEventList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="520dp"/>
+
 
 </FrameLayout>

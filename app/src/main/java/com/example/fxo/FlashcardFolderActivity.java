@@ -20,7 +20,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
     RecyclerView recyclerView;
     FlashcardFolderAdapter flashcardFolderAdapter;
     TextView folderTextView, noTableText;
-    List<String> myTitle;
+    List<String> myFlashcardFolderName;
     List<Integer> myFlashcardFolderID;
     int folderID, userID;
     String folderName;
@@ -42,33 +42,31 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
         Users_DB = new DatabaseHelper(this);
 
         // Initialize data lists
-        myTitle = new ArrayList<>();
+        myFlashcardFolderName = new ArrayList<>();
         myFlashcardFolderID = new ArrayList<>();
+
+
+
+        // Get folder ID and name from User.java
+        folderID = User.getInstance().getFolderID();
+        folderName = User.getInstance().getFolder();
+        userID = User.getInstance().getUserID();
+        folderTextView.setText("Folder ID: " + folderID + " Folder Name: " + folderName);
 
         // Set up RecyclerView
         LinearLayoutManager lm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(lm);
-        flashcardFolderAdapter = new FlashcardFolderAdapter(this, myTitle, this);
+        flashcardFolderAdapter = new FlashcardFolderAdapter(this, myFlashcardFolderName, myFlashcardFolderID, this);
         recyclerView.setAdapter(flashcardFolderAdapter);
-
-        // Get folder ID and name from intent
-        folderID = getIntent().getIntExtra("FOLDERID", 0);
-        folderName = getIntent().getStringExtra("FOLDERNAME");
-        userID = getIntent().getIntExtra("USERID", 0);
-        folderTextView.setText("Folder ID: " + folderID + " Folder Name: " + folderName);
 
         // Button click listener for adding flashcards
         addFlashcardButton.setOnClickListener(v -> {
             Intent i = new Intent(FlashcardFolderActivity.this, AddFlashcardFolderActivity.class);
-            i.putExtra("FOLDERID", folderID);
-            i.putExtra("FOLDERNAME", folderName);
-            i.putExtra("USERID", userID);
             startActivity(i);
         });
 
         backBtn.setOnClickListener(v -> {
             Intent i = new Intent(FlashcardFolderActivity.this, Nav.class);
-            i.putExtra("USERID", userID);
             startActivity(i);
         });
 
@@ -87,7 +85,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
             while (cursor.moveToNext()) {
                 if (cursor.getInt(4) == folderID) {
                     myFlashcardFolderID.add(cursor.getInt(0));
-                    myTitle.add(cursor.getString(1));
+                    myFlashcardFolderName.add(cursor.getString(1));
                 }
             }
         }
@@ -98,10 +96,8 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
     @Override
     public void onItemClick(int position) {
         Intent i = new Intent(FlashcardFolderActivity.this, FlashcardActivity.class);
-        i.putExtra("USERID", userID);
-        i.putExtra("FLASHCARDFOLDERID", myFlashcardFolderID.get(position));
-        i.putExtra("FOLDERID", folderID);
-        i.putExtra("FOLDERNAME", folderName);
+        User.getInstance().setFlashcardFolderID(myFlashcardFolderID.get(position));
+        User.getInstance().setFlashcardFolderTitle(myFlashcardFolderName.get(position));
         startActivity(i);
     }
 }

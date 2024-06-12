@@ -58,7 +58,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
             super(itemView);
 
             // Initialize the TextView
-            name = itemView.findViewById(R.id.folder_name);
+            name = itemView.findViewById(R.id.folderitem);
 
             // Set click listener for the item view
             itemView.setOnClickListener(v -> {

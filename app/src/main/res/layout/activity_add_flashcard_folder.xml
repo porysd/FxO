@@ -99,9 +99,14 @@
         android:layout_width="150dp"
         android:layout_height="51dp"
         android:layout_marginTop="92dp"
+        android:background="@drawable/gsbutton"
+        android:backgroundTint="#CDCDCD"
         android:text="CANCEL"
+        android:textColor="@color/black"
+        android:textSize="23dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_folders" />
 
@@ -110,9 +115,14 @@
         android:layout_width="150dp"
         android:layout_height="51dp"
         android:layout_marginTop="92dp"
+        android:background="@drawable/gsbutton"
+        android:backgroundTint="#615D61"
         android:text="DONE"
+        android:textColor="@color/white"
+        android:textSize="23dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.876"
+        app:layout_constraintHorizontal_bias="0.923"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_folders" />
 

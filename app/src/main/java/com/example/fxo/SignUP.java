@@ -1,17 +1,20 @@
 package com.example.fxo;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.text.style.UnderlineSpan;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.content.Intent;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUP extends AppCompatActivity {
@@ -21,10 +24,10 @@ public class SignUP extends AppCompatActivity {
     EditText firstName, lastName, birthDate, contactNo, userName, password;
     Button signUp;
     CheckBox show;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
 
         sUp = findViewById(R.id.sign_up);
@@ -42,38 +45,10 @@ public class SignUP extends AppCompatActivity {
         show = findViewById(R.id.checkBox);
         signUp = findViewById(R.id.btnSUP);
 
-        signUp.setOnClickListener(View -> {
-            String user = userName.getText().toString();
-            String pass = password.getText().toString();
-            String fn = firstName.getText().toString();
-            String ln = lastName.getText().toString();
-            String bd = birthDate.getText().toString();
-            String cn = contactNo.getText().toString();
-
-            if (user.isEmpty() || pass.isEmpty() || fn.isEmpty() || ln.isEmpty() || bd.isEmpty() || cn.isEmpty()) {
-                Toast.makeText(this, "Put input in everything!!", Toast.LENGTH_SHORT).show();
-            } else {
-                Boolean checkuser = Users_DB.usernameAlreadyExisting(user);
-                if (!checkuser) {
-                    Boolean insert = Users_DB.insertUserData(user, pass, fn, ln, bd, cn);
-                    if (insert) {
-                        int userID = Users_DB.getUserID(user);
-                        Users_DB.insertFolderData("Prelim", userID);
-                        Users_DB.insertFolderData("Midterms", userID);
-                        Users_DB.insertFolderData("Prefinals", userID);
-                        Users_DB.insertFolderData("Finals", userID);
-
-                        Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), LogIN.class);
-                        String bckLogIn = "QUIZZLER";
-                        intent.putExtra("LOGIN", bckLogIn);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(this, "Register Failed", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(this, "User already exists!", Toast.LENGTH_SHORT).show();
-                }
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCustomDialog();
             }
         });
 
@@ -87,15 +62,77 @@ public class SignUP extends AppCompatActivity {
                 }
             }
         });
+
         logIn = findViewById(R.id.log_in);
-
-        logIn.setOnClickListener(View -> {
-            Intent intent = new Intent (this, LogIN.class);
-
-            String bckLogIn = "ECLIPSE";
-
-            intent.putExtra("LOGIN", bckLogIn);
-            startActivity(intent);
+        logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUP.this, LogIN.class);
+                String bckLogIn = "ECLIPSE";
+                intent.putExtra("LOGIN", bckLogIn);
+                startActivity(intent);
+            }
         });
+    }
+
+    private void showCustomDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialogforsignup);
+
+        TextView title = dialog.findViewById(R.id.dialog_title);
+        TextView message = dialog.findViewById(R.id.dialog_message);
+        TextView dialogButton = dialog.findViewById(R.id.dialog_button);
+
+        title.setText("WELCOME TO ECLIPSE, " + userName.getText().toString() + "!");
+        message.setText("Your journey to better learning and planning begings here.");
+
+        SpannableString sht = new SpannableString("Let's Get Started!");
+        sht.setSpan(new UnderlineSpan(), 0, sht.length(),0);
+        dialogButton.setText(sht);
+
+        //align the message and title in the dialog....
+        //fix the message and title ....
+
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user = userName.getText().toString();
+                String pass = password.getText().toString();
+                String fn = firstName.getText().toString();
+                String ln = lastName.getText().toString();
+                String bd = birthDate.getText().toString();
+                String cn = contactNo.getText().toString();
+
+
+                if (user.isEmpty() || pass.isEmpty() || fn.isEmpty() || ln.isEmpty() || bd.isEmpty() || cn.isEmpty()) {
+                    Toast.makeText(SignUP.this, "Put input in everything!!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Boolean checkuser = Users_DB.usernameAlreadyExisting(user);
+                    if (!checkuser) {
+                        Boolean insert = Users_DB.insertUserData(user, pass, fn, ln, bd, cn);
+                        if (insert) {
+                            int userID = Users_DB.getUserID(user);
+                            Users_DB.insertFolderData("Prelim", userID);
+                            Users_DB.insertFolderData("Midterms", userID);
+                            Users_DB.insertFolderData("Prefinals", userID);
+                            Users_DB.insertFolderData("Finals", userID);
+
+
+                            Toast.makeText(SignUP.this, "Register Success", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(SignUP.this, Nav.class);
+                            i.putExtra("USERID", userID); // Pass the userId to the next activity
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(SignUP.this, "Register Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(SignUP.this, "User already exists!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }

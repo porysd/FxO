@@ -35,7 +35,7 @@ public class HOME extends Fragment implements RecyclerViewInterface {
         // Initialize UI components
         recyclerView = view.findViewById(R.id.recycler);
         textView2 = view.findViewById(R.id.textView2);
-        userID = getActivity().getIntent().getIntExtra("USERID", 0);
+        userID = User.getInstance().getUserID();
         textView2.setText("Users Account: " + userID);
 
         // Initialize database helper and lists
@@ -76,9 +76,8 @@ public class HOME extends Fragment implements RecyclerViewInterface {
     @Override
     public void onItemClick(int position) {
         Intent i = new Intent(getActivity(), FlashcardFolderActivity.class);
-        i.putExtra("FOLDERID", myFolderID.get(position));
-        i.putExtra("FOLDERNAME", myFolder.get(position));
-        i.putExtra("USERID", userID);
+        User.getInstance().setFolderID(myFolderID.get(position));
+        User.getInstance().setFolder(myFolder.get(position));
         startActivity(i);
     }
 }

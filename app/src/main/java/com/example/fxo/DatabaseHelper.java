@@ -6,15 +6,21 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Database name
     public static final String db_name = "Users_DB";
 
+    private Context context;
+
     // Constructor
     public DatabaseHelper(Context context) {
         super(context, db_name, null, 1);
+        this.context = context;
     }
+
+
 
     // Create tables when the database is created
     @Override
@@ -136,5 +142,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("contactno", contactno);
         long result = db.insert("Users_tbl", null, contentValues);
         return result != -1;
+    }
+    //Method to delete flashcardID
+    public boolean deleteData(String flashcardFolderID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("Flashcards_tbl", "flashcardfolderID = ?", new String[]{flashcardFolderID});
+        int result = db.delete("FlashcardFolders_tbl", "flashcardfolderID = ?", new String[]{flashcardFolderID});
+        return result > 0;
+    }
+
+    public boolean deleteFlashcardData(String flashcardID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete("Flashcards_tbl", "flashcardID = ?", new String[]{flashcardID});
+        return result > 0;
+    }
+
+    // Method to get folder ID by name
+    public int getFolderIDByName(String folderName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT flashcardfolderID FROM FlashcardFolders_tbl WHERE title = ?", new String[]{folderName});
+        int folderID = -1;
+        if (cursor != null && cursor.moveToFirst()) {
+            folderID = cursor.getInt(0);
+            cursor.close();
+        }
+        return folderID;
+    }
+    public void resetAutoIncrement() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM FlashcardFolders_tbl", null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int count = cursor.getInt(0);
+            cursor.close();
+            if (count == 0) {
+                db.execSQL("DELETE FROM sqlite_sequence WHERE name='FlashcardFolders_tbl'");
+            } else {
+                //table not empty, do not reset.
+            }
+        }
+    }
+
+    public void updateFlashcard(String flashcardID, String question, String answer){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("question", question);
+        contentValues.put("answer", answer);
+        long result = db.update("Flashcards_tbl", contentValues, "flashcardID=?", new String[]{flashcardID});
+        if(result == -1){
+            Toast.makeText(context, "Failed to update", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(context, "Update success", Toast.LENGTH_SHORT).show();
+        }
     }
 }

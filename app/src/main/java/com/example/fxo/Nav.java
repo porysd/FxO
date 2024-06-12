@@ -23,8 +23,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class Nav extends AppCompatActivity {
 
     FloatingActionButton fab;
-    int folderID, userID;
-    String folderName;
     @NonNull ActivityNavBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,17 +74,11 @@ public class Nav extends AppCompatActivity {
         LinearLayout fc = dialog.findViewById(R.id.Flashcards);
         LinearLayout e = dialog.findViewById(R.id.Events);
 
-        folderID = getIntent().getIntExtra("FOLDERID", 0);
-        folderName = getIntent().getStringExtra("FOLDERNAME");
-        userID = getIntent().getIntExtra("USERID", 0);
         fc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
                 Intent i = new Intent(Nav.this, AddFlashcardFolderActivity.class);
-                i.putExtra("FOLDERID", folderID);
-                i.putExtra("FOLDERNAME", folderName);
-                i.putExtra("USERID", userID);
                 startActivity(i);
                 Toast.makeText(Nav.this, "Flashcards", Toast.LENGTH_SHORT).show();
 
