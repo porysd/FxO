@@ -78,7 +78,7 @@ public class Nav extends AppCompatActivity {
 
         folderID = getIntent().getIntExtra("FOLDERID", 0);
         folderName = getIntent().getStringExtra("FOLDERNAME");
-        userID = getIntent().getIntExtra("USERID", 0);
+        userID = User.getInstance().getUserID();
         fc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

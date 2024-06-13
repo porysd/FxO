@@ -35,7 +35,6 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
 
     // Variables to hold selected folder position and ID
     int pos, userID;
-    String folderName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,7 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
         cancelBtn = findViewById(R.id.cancel_btn);
         finishBtn = findViewById(R.id.finish_btn);
         backBtn = findViewById(R.id.back_btn);
-        userID = getIntent().getIntExtra("USERID", 0);
+        userID = User.getInstance().getUserID();
 
         // Populate spinner with items from the database
         inputSpinnerItems();
@@ -77,9 +76,8 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
                 boolean insert = Users_DB.insertFlashcardFolderData(title, subject, pos);
                 if(insert){
                     Intent i = new Intent(AddFlashcardFolderActivity.this, FlashcardFolderActivity.class);
-                    i.putExtra("USERID", userID);
-                    i.putExtra("FOLDERID", pos);
-                    i.putExtra("FOLDERNAME", spinnerFolders.getSelectedItem().toString());
+                    User.getInstance().setFolderID(pos);
+                    User.getInstance().setFolder(spinnerFolders.getSelectedItem().toString());
                     startActivity(i);
                     Toast.makeText(this, "Flashcard Folder Created: " + title, Toast.LENGTH_SHORT).show();
                 } else {

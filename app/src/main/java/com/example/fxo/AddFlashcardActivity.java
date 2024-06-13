@@ -13,8 +13,7 @@ public class AddFlashcardActivity extends AppCompatActivity {
     EditText questionText, answerText;
     Button addBtn, finishBtn, bckBtn;
     DatabaseHelper Users_DB;
-    int flashcardfolderID, folderID,userID;
-    String folderName;
+    int flashcardfolderID;
 
 
     @Override
@@ -33,10 +32,7 @@ public class AddFlashcardActivity extends AppCompatActivity {
         finishBtn = findViewById(R.id.finish_btn);
 
         // Get flashcard folder ID from intent
-        flashcardfolderID = getIntent().getIntExtra("FLASHCARDFOLDERID", 0);
-        folderID = getIntent().getIntExtra("FOLDERID", 0);
-        folderName = getIntent().getStringExtra("FOLDERNAME");
-        userID = getIntent().getIntExtra("USERID", 0);
+        flashcardfolderID = User.getInstance().getFlashcardFolderID();
 
         // Set onClick listener for the add button
         addBtn.setOnClickListener(v -> {
@@ -65,10 +61,6 @@ public class AddFlashcardActivity extends AppCompatActivity {
         finishBtn.setOnClickListener(view -> {
             // Navigate back to the flashcard folder activity
             Intent i = new Intent(AddFlashcardActivity.this, FlashcardActivity.class);
-            i.putExtra("FLASHCARDFOLDERID", flashcardfolderID);
-            i.putExtra("USERID", userID);
-            i.putExtra("FOLDERID", folderID);
-            i.putExtra("FOLDERNAME", folderName);
             startActivity(i);
         });
     }

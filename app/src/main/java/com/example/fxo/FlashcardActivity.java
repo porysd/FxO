@@ -32,8 +32,8 @@ public class FlashcardActivity extends AppCompatActivity {
     // FlashcardActivity data
     List<String> myQuestions;
     List<String> myAnswers;
-    int flashcardfolderID, folderID, index, userID;
-    String folderName, flashcardTitle;
+    int flashcardfolderID, index;
+    String flashcardTitle;
 
     // Flip animation
     private AnimatorSet frontAnim, backBtnAnim;
@@ -64,11 +64,9 @@ public class FlashcardActivity extends AppCompatActivity {
 
         // Initialize database helper and get flashcard folder ID
         Users_DB = new DatabaseHelper(this);
-        flashcardfolderID = getIntent().getIntExtra("FLASHCARDFOLDERID", 0);
-        userID = getIntent().getIntExtra("USERID", 0);
-        folderID = getIntent().getIntExtra("FOLDERID", 0);
-        folderName = getIntent().getStringExtra("FOLDERNAME");
-        flashcardTitle = getIntent().getStringExtra("FLASHCARDTITLE");
+        flashcardfolderID = User.getInstance().getFlashcardFolderID();
+
+        flashcardTitle = User.getInstance().getFlashcardFolderTitle();
 
         fcName.setText(flashcardTitle);
 
@@ -78,19 +76,12 @@ public class FlashcardActivity extends AppCompatActivity {
 
         backBtn.setOnClickListener(v -> {
             Intent i = new Intent(FlashcardActivity.this, FlashcardFolderActivity.class);
-            i.putExtra("FOLDERID", folderID);
-            i.putExtra("FOLDERNAME", folderName);
-            i.putExtra("USERID", userID);
             startActivity(i);
         });
 
         // Set event listeners
         addFlashcardBtn.setOnClickListener(v -> {
             Intent i = new Intent(FlashcardActivity.this, AddFlashcardActivity.class);
-            i.putExtra("FLASHCARDFOLDERID", flashcardfolderID);
-            i.putExtra("FOLDERID", folderID);
-            i.putExtra("FOLDERNAME", folderName);
-            i.putExtra("USERID", userID);
             startActivity(i);
         });
 
