@@ -137,4 +137,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert("Users_tbl", null, contentValues);
         return result != -1;
     }
+    //Method to delete flashcardID
+    public boolean deleteData(String flashcardID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete("FlashcardFolders_tbl", "flashcardfolderID = ?", new String[]{flashcardID});
+        return result > 0;
+    }
+
+    // Method to get folder ID by name
+    public int getFolderIDByName(String folderName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT flashcardfolderID FROM FlashcardFolders_tbl WHERE title = ?", new String[]{folderName});
+        int folderID = -1;
+        if (cursor != null && cursor.moveToFirst()) {
+            folderID = cursor.getInt(0);
+            cursor.close();
+        }
+        return folderID;
+    }
+    public void resetAutoIncrement() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM FlashcardFolders_tbl", null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int count = cursor.getInt(0);
+            cursor.close();
+            if (count == 0) {
+                db.execSQL("DELETE FROM sqlite_sequence WHERE name='FlashcardFolders_tbl'");
+            } else {
+                //table not empty, do not reset.
+            }
+        }
+    }
 }
