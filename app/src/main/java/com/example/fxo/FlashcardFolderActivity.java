@@ -22,7 +22,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
     TextView folderTextView, noTableText;
     List<String> myTitle;
     List<Integer> myFlashcardFolderID;
-    int folderID;
+    int folderID, userID;
     String folderName;
     DatabaseHelper Users_DB;
 
@@ -50,6 +50,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
         // Get folder ID and name from intent
         folderID = User.getInstance().getFolderID();
         folderName = User.getInstance().getFolder();
+        userID = User.getInstance().getUserID();
         folderTextView.setText("Folder ID: " + folderID + " Folder Name: " + folderName);
 
         // Set up RecyclerView

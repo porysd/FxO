@@ -98,10 +98,7 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
 
                                 if (itemId == R.id.menu_add) {
                                     Intent i = new Intent(FlashcardFolderAdapter.this.context, AddFlashcardActivity.class);
-                                    i.putExtra("FOLDERID", folderID);
-                                    i.putExtra("USERID", userID);
-                                    i.putExtra("FOLDERNAME", folderName);
-                                    i.putExtra("FLASHCARDFOLDERID", position + flashcardFoldersID.get(0));
+                                    User.getInstance().setFlashcardFolderID(position + flashcardFoldersID.get(0));
                                     context.startActivity(i);
                                     return true;
                                 } else if (itemId == R.id.menu_edit) {

@@ -16,8 +16,6 @@ public class User {
     private String subject;
 
 
-    private String flashcard;
-
     public static synchronized User getInstance() {
         if (instance == null) {
             instance = new User();
@@ -108,15 +106,6 @@ public class User {
     public void setFlashcardFolderTitle(String flashcardFolderTitle) {
         this.flashcardFolderTitle = flashcardFolderTitle;
     }
-
-    public String getFlashcard() {
-        return flashcard;
-    }
-
-    public void setFlashcard(String flashcard) {
-        this.flashcard = flashcard;
-    }
-
 
     public String getSubject() {
         return subject;
