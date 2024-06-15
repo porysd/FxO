@@ -34,7 +34,7 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
     List<Integer> myFolderID;
 
     // Variables to hold selected folder position and ID
-    int pos, userID;
+    int pos, userID, folderID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,7 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
         finishBtn = findViewById(R.id.finish_btn);
         backBtn = findViewById(R.id.back_btn);
         userID = User.getInstance().getUserID();
+        folderID = User.getInstance().getFolderID();
 
         // Populate spinner with items from the database
         inputSpinnerItems();
@@ -62,6 +63,15 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, myFolder);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFolders.setAdapter(spinnerArrayAdapter);
+
+        // Set default spinner location from the current folder
+        for (int x = 0; x < myFolderID.size(); x++) {
+            if (folderID == myFolderID.get(x)) {
+                spinnerFolders.setSelection(x);
+                break;
+            }
+        }
+
 
         // Set click listener for the finish button
         finishBtn.setOnClickListener(view -> {
@@ -93,7 +103,8 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
         spinnerFolders.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                pos = (myFolderID.get(0)) + (position); // Adjust position to match folder ID
+
+                pos = (myFolderID.get(position)); // Adjust position to match folder ID
                 Toast.makeText(getApplicationContext(), "Position: " + pos, Toast.LENGTH_SHORT).show();
             }
 

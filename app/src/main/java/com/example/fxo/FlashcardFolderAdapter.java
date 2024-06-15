@@ -22,20 +22,15 @@ import java.util.List;
 public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolderAdapter.ViewHolder> {
     private final RecyclerViewInterface recyclerViewInterface;
     Context context;
-    List<String> folders;
+    List<String> flashcardFoldersTitle;
     List<Integer> flashcardFoldersID;
-    String folder;
-    String folderName;
-    int folderID, userID;
+    String fcFolderTitle;
     DatabaseHelper Users_DB;
 
-    public FlashcardFolderAdapter(Context context, List<String> folders, List<Integer> flashcardFoldersID, int folderID, int userID, String folderName, RecyclerViewInterface recyclerViewInterface){
+    public FlashcardFolderAdapter(Context context, List<String> flashcardFoldersTitle, List<Integer> flashcardFoldersID, RecyclerViewInterface recyclerViewInterface){
         this.context = context;
-        this.folders = folders;
-        this.folderID = folderID;
+        this.flashcardFoldersTitle = flashcardFoldersTitle;
         this.flashcardFoldersID = flashcardFoldersID;
-        this.userID = userID;
-        this.folderName = folderName;
         this.recyclerViewInterface = recyclerViewInterface;
         Users_DB = new DatabaseHelper(context);
     }
@@ -49,13 +44,14 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
 
     @Override
     public void onBindViewHolder(@NonNull FlashcardFolderAdapter.ViewHolder holder, int position) {
-        folder = folders.get(position);
-        holder.name.setText(folder);
+        fcFolderTitle = flashcardFoldersTitle.get(position);
+        holder.name.setText(fcFolderTitle);
+        
     }
 
     @Override
     public int getItemCount() {
-        return folders.size();
+        return flashcardFoldersTitle.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -86,9 +82,9 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.menu_options, popup.getMenu());
                     int position = getAdapterPosition();
-                    Toast.makeText(FlashcardFolderAdapter.this.context, "FLASHCARDFOLDERID:" + (position + flashcardFoldersID.get(0)) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FlashcardFolderAdapter.this.context, "FLASHCARDFOLDERID:" + (flashcardFoldersID.get(position)) , Toast.LENGTH_SHORT).show();
                     if (position != RecyclerView.NO_POSITION) {
-                        String foldersName = folders.get(position);
+                        String foldersName = flashcardFoldersTitle.get(position);
                         int flashcardID = Users_DB.getFolderIDByName(foldersName);
 
                         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -98,7 +94,8 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
 
                                 if (itemId == R.id.menu_add) {
                                     Intent i = new Intent(FlashcardFolderAdapter.this.context, AddFlashcardActivity.class);
-                                    User.getInstance().setFlashcardFolderID(position + flashcardFoldersID.get(0));
+                                    User.getInstance().setFlashcardFolderTitle(flashcardFoldersTitle.get(position));
+                                    User.getInstance().setFlashcardFolderID(flashcardFoldersID.get(position));
                                     context.startActivity(i);
                                     return true;
                                 } else if (itemId == R.id.menu_edit) {
@@ -127,7 +124,7 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
             public void onClick(DialogInterface dialogInterface, int i) {
                 boolean deleted = Users_DB.deleteData(String.valueOf(flashcardID));
                 if (deleted) {
-                    folders.remove(position);
+                    flashcardFoldersTitle.remove(position);
                     notifyItemRemoved(position);
                     Toast.makeText(context, "Record deleted successfully", Toast.LENGTH_SHORT).show();
                     Users_DB.resetAutoIncrement();
