@@ -82,7 +82,7 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
                     MenuInflater inflater = popup.getMenuInflater();
                     inflater.inflate(R.menu.menu_options, popup.getMenu());
                     int position = getAdapterPosition();
-                    Toast.makeText(FlashcardFolderAdapter.this.context, "FLASHCARDFOLDERID:" + (flashcardFoldersID.get(position)) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FlashcardFolderAdapter.this.context, "FLASHCARDFOLDERID:" + (flashcardFoldersID.get(position)) + "position: " + position, Toast.LENGTH_SHORT).show();
                     if (position != RecyclerView.NO_POSITION) {
                         String foldersName = flashcardFoldersTitle.get(position);
                         int fcfolderID = Users_DB.getFolderIDByName(foldersName);
@@ -121,18 +121,15 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirm Delete");
         builder.setMessage("Are you sure you want to delete this record?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                boolean deleted = Users_DB.deleteData(String.valueOf(fcfolderID));
-                if (deleted) {
-                    flashcardFoldersTitle.remove(position);
-                    notifyItemRemoved(position);
-                    Toast.makeText(context, "Record deleted successfully", Toast.LENGTH_SHORT).show();
-                    Users_DB.resetAutoIncrement();
-                } else {
-                    Toast.makeText(context, "Failed to delete record", Toast.LENGTH_SHORT).show();
-                }
+        builder.setPositiveButton("Yes", (dialogInterface, i) -> {
+            boolean deleted = Users_DB.deleteData(String.valueOf(fcfolderID));
+            if (deleted) {
+                flashcardFoldersTitle.remove(position);
+                notifyItemRemoved(position);
+                Toast.makeText(context, "Record deleted successfully", Toast.LENGTH_SHORT).show();
+                Users_DB.resetAutoIncrement();
+            } else {
+                Toast.makeText(context, "Failed to delete record", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("No", null);

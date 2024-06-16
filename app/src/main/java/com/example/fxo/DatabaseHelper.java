@@ -6,15 +6,21 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Database name
     public static final String db_name = "Users_DB";
 
+    private Context context;
+
     // Constructor
     public DatabaseHelper(Context context) {
         super(context, db_name, null, 1);
+        this.context = context;
     }
+
+
 
     // Create tables when the database is created
     @Override
@@ -138,9 +144,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
     //Method to delete flashcardID
-    public boolean deleteData(String flashcardID) {
+    public boolean deleteData(String flashcardFolderID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete("FlashcardFolders_tbl", "flashcardfolderID = ?", new String[]{flashcardID});
+        db.delete("Flashcards_tbl", "flashcardfolderID = ?", new String[]{flashcardFolderID});
+        int result = db.delete("FlashcardFolders_tbl", "flashcardfolderID = ?", new String[]{flashcardFolderID});
+        return result > 0;
+    }
+
+    public boolean deleteFlashcardData(String flashcardID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete("Flashcards_tbl", "flashcardID = ?", new String[]{flashcardID});
         return result > 0;
     }
 
@@ -166,6 +179,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } else {
                 //table not empty, do not reset.
             }
+        }
+    }
+
+    public void updateFlashcard(String flashcardID, String question, String answer){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("question", question);
+        contentValues.put("answer", answer);
+        long result = db.update("Flashcards_tbl", contentValues, "flashcardID=?", new String[]{flashcardID});
+        if(result == -1){
+            Toast.makeText(context, "Failed to update", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(context, "Update success", Toast.LENGTH_SHORT).show();
         }
     }
 }

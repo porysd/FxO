@@ -4,6 +4,7 @@ public class User {
     private User() { }
     private static User instance;
     private int userID;
+    private int flashcardID;
     private int contactNo;
     private int folderID;
     private int flashcardFolderID;
@@ -14,6 +15,9 @@ public class User {
     private String folder;
     private String flashcardFolderTitle;
     private String subject;
+    private String question;
+    private String answer;
+
 
 
     public static synchronized User getInstance() {
@@ -116,4 +120,27 @@ public class User {
     }
 
 
+    public int getFlashcardID() {
+        return flashcardID;
+    }
+
+    public void setFlashcardID(int flashcardID) {
+        this.flashcardID = flashcardID;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 }
