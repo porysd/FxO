@@ -85,7 +85,7 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
                     Toast.makeText(FlashcardFolderAdapter.this.context, "FLASHCARDFOLDERID:" + (flashcardFoldersID.get(position)) , Toast.LENGTH_SHORT).show();
                     if (position != RecyclerView.NO_POSITION) {
                         String foldersName = flashcardFoldersTitle.get(position);
-                        int flashcardID = Users_DB.getFolderIDByName(foldersName);
+                        int fcfolderID = Users_DB.getFolderIDByName(foldersName);
 
                         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
@@ -99,11 +99,13 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
                                     context.startActivity(i);
                                     return true;
                                 } else if (itemId == R.id.menu_edit) {
-                                    // Handle edit action
-                                    Toast.makeText(FlashcardFolderAdapter.this.context, "Edit action clicked", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(FlashcardFolderAdapter.this.context, EditFlashcard.class);
+                                    User.getInstance().setFlashcardFolderTitle(flashcardFoldersTitle.get(position));
+                                    User.getInstance().setFlashcardFolderID(flashcardFoldersID.get(position));
+                                    context.startActivity(i);
                                     return true;
                                 } else if (itemId == R.id.menu_delete) {
-                                    confirmDelete(flashcardID, position);
+                                    confirmDelete(fcfolderID, position);
                                     return true;
                                 }
                                 return false;
@@ -115,14 +117,14 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
             });
         }
     }
-    private void confirmDelete(int flashcardID, int position) {
+    private void confirmDelete(int fcfolderID, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirm Delete");
         builder.setMessage("Are you sure you want to delete this record?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                boolean deleted = Users_DB.deleteData(String.valueOf(flashcardID));
+                boolean deleted = Users_DB.deleteData(String.valueOf(fcfolderID));
                 if (deleted) {
                     flashcardFoldersTitle.remove(position);
                     notifyItemRemoved(position);

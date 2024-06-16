@@ -47,7 +47,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
 
 
 
-        // Get folder ID and name from intent
+        // Get folder ID and name from User.java
         folderID = User.getInstance().getFolderID();
         folderName = User.getInstance().getFolder();
         userID = User.getInstance().getUserID();
