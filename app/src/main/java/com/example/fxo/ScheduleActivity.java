@@ -28,7 +28,7 @@ public class ScheduleActivity extends AppCompatActivity {
     TextView eventDate, eventReminder;
      Button cancelButton, doneButton;
     DatePickerDialog datePickerDialog;
-    DatabaseHelper dbHelper;
+    DatabaseHelper db;
     int hour, min;
     int userID;
 
@@ -42,7 +42,7 @@ public class ScheduleActivity extends AppCompatActivity {
         eventReminder = findViewById(R.id.event_reminders);
         cancelButton = findViewById(R.id.cancel_button);
         doneButton = findViewById(R.id.done_button);
-        dbHelper = new DatabaseHelper(this); // Initialize the database helper
+        db = new DatabaseHelper(this); // Initialize the database helper
 
         userID = User.getInstance().getUserID();
 
@@ -86,7 +86,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 String date = eventDate.getText().toString();
                 String reminder = eventReminder.getText().toString();
 
-                boolean isInserted = true;
+                boolean isInserted = db.insertEventData(name, date, reminder, userID);
                 if (isInserted) {
                     Toast.makeText(ScheduleActivity.this, "Event created successfully", Toast.LENGTH_SHORT).show();
                 } else {

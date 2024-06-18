@@ -38,6 +38,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Flashcard question and answers table
         db.execSQL("CREATE TABLE Flashcards_tbl(flashcardID INTEGER PRIMARY KEY AUTOINCREMENT, question TEXT, answer TEXT, datecreated DATETIME DEFAULT CURRENT_TIMESTAMP, flashcardfolderID INTEGER, FOREIGN KEY(flashcardfolderID) REFERENCES FlashcardFolders_tbl(flashcardfolderID))");
+
+        // Event Table
+        db.execSQL("CREATE TABLE Event_tbl(eventID INTEGER PRIMARY KEY AUTOINCREMENT, eventName TEXT, eventDate TEXT, eventReminder TEXT, usersID INTEGER, FOREIGN KEY(usersID) REFERENCES Users_tbl(usersID))");
     }
 
     // Drop tables and recreate them if the database version is upgraded
@@ -194,5 +197,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else{
             Toast.makeText(context, "Update success", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public Boolean insertEventData (String eventName, String eventDate, String eventReminder, int usersID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("eventName", eventName);
+        contentValues.put("eventDate", eventDate);
+        contentValues.put("eventReminder", eventReminder);
+        contentValues.put("usersID", usersID);
+        long result = db.insert("Event_tbl", null, contentValues);
+        return result != -1;
     }
 }
