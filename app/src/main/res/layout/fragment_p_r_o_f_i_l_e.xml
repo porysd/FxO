@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#000000"
     tools:context=".PROFILE">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/black"
-        android:text="PROFILE" />
 
     <LinearLayout
         android:layout_width="395dp"
@@ -20,16 +13,124 @@
         android:background="@color/black"
         tools:layout_editor_absoluteX="-1dp"
         tools:layout_editor_absoluteY="2dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"/>
 
-        <ImageButton
-            android:id="@+id/back_btn"
-            android:layout_width="94dp"
-            android:layout_height="83dp"
-            android:background="@color/black"
-            app:srcCompat="@drawable/baseline_arrow_back_ios_24"
-            app:tint="#FFFFFF" />
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="94dp"
+        android:layout_height="83dp"
+        android:background="@color/black"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_24"
+        app:tint="#FFFFFF" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:layout_below="@id/back_btn"
+        android:layout_marginTop="83dp"
+        android:background="@color/white"
+        android:orientation="vertical"
 
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/pfp"
+            android:contentDescription="Profile picture"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/pfFULLNAME"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="FULL NAME"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/pfUSERNAME"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="username"
+            android:textColor="#7a7a7a"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/pfName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/pf_design"
+                android:padding="16dp"
+                android:text="Name: Juan Dela Cruz"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/pfContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/pf_design"
+                android:padding="16dp"
+                android:text="Contact: 0912 345 6789"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/pfBirthdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/pf_design"
+                android:padding="16dp"
+                android:text="Birthdate: 01.01.2024"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/pfSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/pf_design"
+                android:padding="16dp"
+                android:text="Settings"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/pfHS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/pf_design"
+                android:padding="16dp"
+                android:text="Help and Support"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/pfLogOUT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/pf_design"
+                android:padding="16dp"
+                android:text="Log out"
+                android:textColor="#F06B6B"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+</RelativeLayout>
