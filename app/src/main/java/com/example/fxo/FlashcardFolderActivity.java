@@ -45,8 +45,6 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
         myFlashcardFolderName = new ArrayList<>();
         myFlashcardFolderID = new ArrayList<>();
 
-
-
         // Get folder ID and name from User.java
         folderID = User.getInstance().getFolderID();
         folderName = User.getInstance().getFolder();
