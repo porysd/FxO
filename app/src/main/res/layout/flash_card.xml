@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginHorizontal="20dp">
+    android:layout_width="101dp"
+    android:layout_height="138dp"
+    android:layout_margin="12dp"> <!-- Ensure no excessive padding -->
 
     <TextView
         android:id="@+id/flashcardView"
-        android:layout_width="101dp"
-        android:layout_height="138dp"
-        android:padding="8dp"
-        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/hp_flashcard"
         android:hint="FC"
-        android:textColorHint="#FFFFFF"
-        android:background="#E5E3E3"
-        android:textSize="24sp" />
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="15sp" />
+
 </RelativeLayout>

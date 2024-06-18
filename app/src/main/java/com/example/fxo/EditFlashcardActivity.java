@@ -11,21 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditFlashcard extends AppCompatActivity implements RecyclerViewInterface{
+public class EditFlashcardActivity extends AppCompatActivity implements RecyclerViewInterface{
     RecyclerView recyclerView;
     EditFlashcardAdapter editFlashcardAdapter;
     List<String> myQuestions;
@@ -110,7 +104,7 @@ public class EditFlashcard extends AppCompatActivity implements RecyclerViewInte
         });
 
         save.setOnClickListener(v -> {
-            DatabaseHelper db = new DatabaseHelper(EditFlashcard.this);
+            DatabaseHelper db = new DatabaseHelper(EditFlashcardActivity.this);
             String q = question.getText().toString();
             String a = answer.getText().toString();
             db.updateFlashcard(flashcardID, q, a);

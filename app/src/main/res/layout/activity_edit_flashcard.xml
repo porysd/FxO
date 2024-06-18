@@ -5,7 +5,36 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditFlashcard">
+    tools:context=".EditFlashcardActivity">
+
+    <LinearLayout
+        android:layout_width="395dp"
+        android:layout_height="83dp"
+        android:background="@color/black"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="2dp"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="94dp"
+            android:layout_height="83dp"
+            android:background="@color/black"
+            app:srcCompat="@drawable/baseline_arrow_back_ios_24"
+            app:tint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/fcName"
+            android:layout_width="276dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="15dp"
+            android:text="EDIT FLASHCARD"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/white"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/fcfoldernametext"
@@ -22,8 +51,9 @@
         android:id="@+id/questiontext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="84dp"
+        android:background="#939393"
         android:text="Question"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fcfoldernametext" />
@@ -32,21 +62,21 @@
         android:id="@+id/answertext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="68dp"
         android:text="Answer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fcfoldernametext" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
-        android:layout_width="412dp"
-        android:layout_height="612dp"
+        android:layout_width="358dp"
+        android:layout_height="580dp"
         android:layout_marginTop="124dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.52" />
 </androidx.constraintlayout.widget.ConstraintLayout>

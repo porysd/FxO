@@ -8,27 +8,26 @@
     <TextView
         android:id="@+id/questionitem"
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:layout_weight="1"
-        android:background="#282728"
-        android:layout_marginEnd="10dp"
+        android:background="@drawable/edit_flashcard"
+        android:layout_marginEnd="5dp"
         android:padding="8dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/black"
         android:text="Question"
-        android:textColorHint="#FFFFFF"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/answeritem"
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:layout_weight="1"
-        android:background="#282728"
-        android:layout_marginStart="10dp"
+        android:background="@drawable/edit_flashcard"
+        android:layout_marginStart="5dp"
         android:padding="8dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/black"
         android:text="Answer"
         android:textColorHint="#FFFFFF"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
 </LinearLayout>

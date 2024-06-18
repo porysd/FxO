@@ -13,7 +13,10 @@
         android:theme="@style/Theme.FxO"
         tools:targetApi="31">
         <activity
-            android:name=".EditFlashcard"
+            android:name=".NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditFlashcardActivity"
             android:exported="false" />
         <activity
             android:name=".ScheduleActivity"

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LIBRARY extends Fragment implements RecyclerViewInterface {
-    RecyclerView recyclerView, flashView;
-    FolderAdapter flashcardfolderAdapter;
+    RecyclerView recyclerView;
+    LibraryFolderAdapter flashcardfolderAdapter;
 
     FlashcardHomeAdapter flashcardHomeAdapter;
 
@@ -30,21 +31,34 @@ public class LIBRARY extends Fragment implements RecyclerViewInterface {
     List<Integer> myFolderID;
     DatabaseHelper Users_DB;
     TextView textView2;
-    int userID;
 
+    ImageView notify;
+    int userID;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_h_o_m_e, container, false);
+        View view = inflater.inflate(R.layout.fragment_l_i_b_r_a_r_y, container, false);
 
         // Initialize UI components
         recyclerView = view.findViewById(R.id.recycler);
         textView2 = view.findViewById(R.id.textView2);
-        flashView = view.findViewById(R.id.flashview);
 
-        userID = getActivity().getIntent().getIntExtra("USERID", 0);
+        userID = User.getInstance().getUserID();
         textView2.setText("Users Account: " + userID);
+
+
+
+        notify = view.findViewById(R.id.notify);
+        notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Code to open NotificationActivity
+                Intent intent = new Intent(getActivity(), NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         // Initialize database helper and lists
         Users_DB = new DatabaseHelper(getActivity());
@@ -54,7 +68,7 @@ public class LIBRARY extends Fragment implements RecyclerViewInterface {
         // Set up RecyclerView
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(lm);
-        flashcardfolderAdapter = new FolderAdapter(getActivity(), myFolder, this);
+        flashcardfolderAdapter = new LibraryFolderAdapter(getActivity(), myFolder, this);
         recyclerView.setAdapter(flashcardfolderAdapter);
 
         getData();
@@ -85,9 +99,8 @@ public class LIBRARY extends Fragment implements RecyclerViewInterface {
     @Override
     public void onItemClick(int position) {
         Intent i = new Intent(getActivity(), FlashcardFolderActivity.class);
-        i.putExtra("FOLDERID", myFolderID.get(position));
-        i.putExtra("FOLDERNAME", myFolder.get(position));
-        i.putExtra("USERID", userID);
+        User.getInstance().setFolderID(myFolderID.get(position));
+        User.getInstance().setFolder(myFolder.get(position));
         startActivity(i);
     }
 }

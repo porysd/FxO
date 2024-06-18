@@ -2,6 +2,7 @@ package com.example.fxo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -37,20 +38,18 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
+        db = new DatabaseHelper(this);
+
         eventName = findViewById(R.id.event_name);
         eventDate = findViewById(R.id.event_dates);
         eventReminder = findViewById(R.id.event_reminders);
         cancelButton = findViewById(R.id.cancel_button);
         doneButton = findViewById(R.id.done_button);
-        db = new DatabaseHelper(this); // Initialize the database helper
-
-        userID = User.getInstance().getUserID();
-
 
         initDatePicker();
 
-
         String selectedDate = getIntent().getStringExtra("selectedDate");
+
         if (selectedDate != null) {
             eventDate.setText(selectedDate);
         } else {
@@ -85,12 +84,19 @@ public class ScheduleActivity extends AppCompatActivity {
                 String name = eventName.getText().toString();
                 String date = eventDate.getText().toString();
                 String reminder = eventReminder.getText().toString();
+                userID = User.getInstance().getUserID();
 
-                boolean isInserted = db.insertEventData(name, date, reminder, userID);
-                if (isInserted) {
-                    Toast.makeText(ScheduleActivity.this, "Event created successfully", Toast.LENGTH_SHORT).show();
+
+                if (name.isEmpty() || date.isEmpty() || reminder.isEmpty()) {
+                    Toast.makeText(ScheduleActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                    return;
                 } else {
-                    Toast.makeText(ScheduleActivity.this, "Event creation failed", Toast.LENGTH_SHORT).show();
+                    boolean isInserted = db.insertEventData(name, date, reminder, userID);
+                    if (isInserted) {
+                        Toast.makeText(ScheduleActivity.this, "Event created successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ScheduleActivity.this, "Event creation failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 finish();

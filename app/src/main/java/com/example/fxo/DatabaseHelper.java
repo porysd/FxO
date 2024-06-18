@@ -25,8 +25,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Create tables when the database is created
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d("DatabaseHelper", "onCreate called");
-
         // User login table
         db.execSQL("CREATE TABLE Users_tbl(usersID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT, firstname TEXT, lastname TEXT, birthdate TEXT, contactno TEXT)");
 
@@ -50,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Folders_tbl");
         db.execSQL("DROP TABLE IF EXISTS FlashcardFolders_tbl");
         db.execSQL("DROP TABLE IF EXISTS Flashcards_tbl");
+        db.execSQL("DROP TABLE IF EXISTS Event_tbl");
         onCreate(db);
     }
 
@@ -133,6 +132,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    // Method to get recently created flashcard folders
+    public Cursor getRecentFlashcardFolders(int userID, int limit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.rawQuery("SELECT ff.flashcardfolderID, ff.title, ff.subject, ff.datecreated " +
+                "FROM FlashcardFolders_tbl ff " +
+                "INNER JOIN Folders_tbl fo ON ff.foldersID = fo.foldersID " +
+                "WHERE fo.usersID = ? " +
+                "ORDER BY ff.datecreated DESC " +
+                "LIMIT ?", new String[]{String.valueOf(userID), String.valueOf(limit)});
+    }
+
     // Method to insert user data
     public Boolean insertUserData(String username, String password, String firstname, String lastname, String birthdate, String contactno) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -198,7 +208,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Update success", Toast.LENGTH_SHORT).show();
         }
     }
-
     public Boolean insertEventData (String eventName, String eventDate, String eventReminder, int usersID){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -206,7 +215,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("eventDate", eventDate);
         contentValues.put("eventReminder", eventReminder);
         contentValues.put("usersID", usersID);
+
+        Toast.makeText(context, "MAMAmo" + eventName, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "date" + eventDate, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "notif" + eventReminder, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "id" + usersID, Toast.LENGTH_SHORT).show();
+
         long result = db.insert("Event_tbl", null, contentValues);
         return result != -1;
     }
+
 }

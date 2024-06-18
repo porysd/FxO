@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,86 +19,100 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.fxo.databinding.ActivityNavBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class Nav extends AppCompatActivity {
 
-    FloatingActionButton fab;
-    @NonNull ActivityNavBinding binding;
+    private ActivityNavBinding binding;
+    private boolean isProfileFragmentVisible = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityNavBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HOME());
 
+
+
+
+        // Initialize UI components
+        navigationBar();
+
+        // Initially load the HOME fragment
+        replaceFragment(new HOME());
+    }
+
+    private void navigationBar() {
+        binding.bottomAppBar.setVisibility(View.VISIBLE);
+        binding.bottomNavigationView.setVisibility(View.VISIBLE);
+        binding.fab.setVisibility(View.VISIBLE);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-            if (itemId == R.id.btnhome){
+            if (itemId == R.id.btnhome) {
                 replaceFragment(new HOME());
-            } else if (itemId == R.id.btnfolder){
+            } else if (itemId == R.id.btnfolder) {
                 replaceFragment(new LIBRARY());
-            } else if (itemId == R.id.btncalendar){
+            } else if (itemId == R.id.btncalendar) {
                 replaceFragment(new CALENDAR());
-            } else if (itemId == R.id.btnprofile){
+            } else if (itemId == R.id.btnprofile) {
                 replaceFragment(new PROFILE());
             }
-
             return true;
         });
 
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Call method to show dialog
-                showDialog();
-            }
-        });
-
+        binding.fab.setOnClickListener(view -> showDialog());
     }
-    private void replaceFragment(Fragment fragment){
+
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.main,fragment);
+        ft.replace(binding.main.getId(), fragment);
         ft.commit();
+
+        // Update UI visibility based on current fragment
+        if (fragment instanceof PROFILE) {
+            isProfileFragmentVisible = true;
+            hideNavigationUI();
+        } else {
+            isProfileFragmentVisible = false;
+            showNavigationUI();
+        }
     }
 
     private void showDialog() {
-
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.bottomsheetlayout);
 
-        LinearLayout fc = dialog.findViewById(R.id.Flashcards);
-        LinearLayout e = dialog.findViewById(R.id.Events);
-
-        fc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                Intent i = new Intent(Nav.this, AddFlashcardFolderActivity.class);
-                startActivity(i);
-                Toast.makeText(Nav.this, "Flashcards", Toast.LENGTH_SHORT).show();
-
-            }
+        dialog.findViewById(R.id.Flashcards).setOnClickListener(v -> {
+            dialog.dismiss();
+            Intent i = new Intent(Nav.this, AddFlashcardFolderActivity.class);
+            startActivity(i);
+            Toast.makeText(Nav.this, "Flashcards", Toast.LENGTH_SHORT).show();
         });
 
-        e.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                Toast.makeText(Nav.this, "Events", Toast.LENGTH_SHORT).show();
-            }
+        dialog.findViewById(R.id.Events).setOnClickListener(v -> {
+            dialog.dismiss();
+            Toast.makeText(Nav.this, "Events", Toast.LENGTH_SHORT).show();
         });
 
         dialog.show();
-        // Set dialog parameters (width, height, background, animations, gravity) as needed
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    private void hideNavigationUI() {
+        binding.bottomAppBar.setVisibility(View.GONE);
+        binding.bottomNavigationView.setVisibility(View.GONE);
+        binding.fab.setVisibility(View.GONE);
+    }
+
+    private void showNavigationUI() {
+        binding.bottomAppBar.setVisibility(View.VISIBLE);
+        binding.bottomNavigationView.setVisibility(View.VISIBLE);
+        binding.fab.setVisibility(View.VISIBLE);
     }
 }

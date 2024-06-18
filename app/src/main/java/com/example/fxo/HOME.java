@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HOME extends Fragment implements RecyclerViewInterface {
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, flashview;
     FolderAdapter flashcardfolderAdapter;
+    FlashcardHomeAdapter flashcardHomeAdapter;
     List<String> myFolder;
+
+    List<String> myFlashcardFolderName;
+    List<Integer> myFlashcardFolderID;
     List<Integer> myFolderID;
     DatabaseHelper Users_DB;
-    TextView textView2;
+    TextView textView2, seeAll;
+    ImageView notify;
     int userID;
 
     @Nullable
@@ -35,22 +41,42 @@ public class HOME extends Fragment implements RecyclerViewInterface {
         // Initialize UI components
         recyclerView = view.findViewById(R.id.recycler);
         textView2 = view.findViewById(R.id.textView2);
+        flashview = view.findViewById(R.id.flashview);
+        seeAll = view.findViewById(R.id.seeAll);
+        notify = view.findViewById(R.id.notify);
+
+        seeAll.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), FlashcardFolderActivity.class);
+            startActivity(i);
+        });
+
+        notify.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), NotificationActivity.class);
+            startActivity(intent);
+        });
+
         userID = User.getInstance().getUserID();
         textView2.setText("Users Account: " + userID);
 
-        // Initialize database helper and lists
         Users_DB = new DatabaseHelper(getActivity());
         myFolder = new ArrayList<>();
         myFolderID = new ArrayList<>();
+        myFlashcardFolderName = new ArrayList<>();
+        myFlashcardFolderID = new ArrayList<>();
 
-        // Set up RecyclerView
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(lm);
         flashcardfolderAdapter = new FolderAdapter(getActivity(), myFolder, this);
         recyclerView.setAdapter(flashcardfolderAdapter);
 
-        // Fetch data from database
+        LinearLayoutManager lm1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        flashview.setLayoutManager(lm1);
+        flashcardHomeAdapter = new FlashcardHomeAdapter(getActivity(), myFlashcardFolderName, this);
+        flashview.setAdapter(flashcardHomeAdapter);
+
         getData();
+        fetchRecentFlashcardFolders();  // Fetch recent flashcard folders and update the adapter
+
 
         return view;
     }
@@ -71,6 +97,27 @@ public class HOME extends Fragment implements RecyclerViewInterface {
         }
         cursor.close();
     }
+
+    private void fetchRecentFlashcardFolders() {
+        int limit = 5; // Number of recent folders to fetch
+        Cursor cursor = Users_DB.getRecentFlashcardFolders(userID, limit);
+        if (cursor.getCount() == 0) {
+            Toast.makeText(getActivity(), "No recent flashcard folders found", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            while (cursor.moveToNext()) {
+                int flashcardFolderID = cursor.getInt(0);
+                String title = cursor.getString(1);
+                String subject = cursor.getString(2);
+                String dateCreated = cursor.getString(3);
+
+                myFlashcardFolderID.add(flashcardFolderID);
+                myFlashcardFolderName.add(title + "\n\n" + subject + " \n\n(" + dateCreated + ")");
+            }
+        }
+        cursor.close();
+    }
+
 
     // RecyclerView item click listener
     @Override

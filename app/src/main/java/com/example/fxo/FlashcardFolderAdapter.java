@@ -1,7 +1,6 @@
 package com.example.fxo;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -99,7 +98,7 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
                                     context.startActivity(i);
                                     return true;
                                 } else if (itemId == R.id.menu_edit) {
-                                    Intent i = new Intent(FlashcardFolderAdapter.this.context, EditFlashcard.class);
+                                    Intent i = new Intent(FlashcardFolderAdapter.this.context, EditFlashcardActivity.class);
                                     User.getInstance().setFlashcardFolderTitle(flashcardFoldersTitle.get(position));
                                     User.getInstance().setFlashcardFolderID(flashcardFoldersID.get(position));
                                     context.startActivity(i);
