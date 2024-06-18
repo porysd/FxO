@@ -5,8 +5,10 @@ public class User {
     private static User instance;
     private int userID;
     private int flashcardID;
-    private int contactNo;
     private int folderID;
+    private int eventID;
+    private int contactNo;
+
     private int flashcardFolderID;
     private String userName;
     private String firstName;
@@ -18,6 +20,9 @@ public class User {
     private String question;
     private String answer;
 
+    private String eventName;
+    private String eventDate;
+    private String eventReminder;
 
 
     public static synchronized User getInstance() {
@@ -31,6 +36,7 @@ public class User {
         User.instance = instance;
     }
 
+    // User Infromation::
     public int getUserID() {
         return userID;
     }
@@ -45,22 +51,6 @@ public class User {
 
     public void setContactNo(int contactNo) {
         this.contactNo = contactNo;
-    }
-
-    public int getFolderID() {
-        return folderID;
-    }
-
-    public void setFolderID(int folderID) {
-        this.folderID = folderID;
-    }
-
-    public int getFlashcardFolderID() {
-        return flashcardFolderID;
-    }
-
-    public void setFlashcardFolderID(int flashcardFolderID) {
-        this.flashcardFolderID = flashcardFolderID;
     }
 
     public String getUserName() {
@@ -95,12 +85,35 @@ public class User {
         this.birthDate = birthDate;
     }
 
+
+
+    // Folder (Sets) table
+    public int getFolderID() {
+        return folderID;
+    }
+
+    public void setFolderID(int folderID) {
+        this.folderID = folderID;
+    }
+
     public String getFolder() {
         return folder;
     }
 
     public void setFolder(String folder) {
         this.folder = folder;
+    }
+
+
+
+
+    // Flashcard Folder table
+    public int getFlashcardFolderID() {
+        return flashcardFolderID;
+    }
+
+    public void setFlashcardFolderID(int flashcardFolderID) {
+        this.flashcardFolderID = flashcardFolderID;
     }
 
     public String getFlashcardFolderTitle() {
@@ -120,6 +133,8 @@ public class User {
     }
 
 
+
+    // Flashcard table
     public int getFlashcardID() {
         return flashcardID;
     }
@@ -143,4 +158,12 @@ public class User {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+
+
+    // Event table
+    public int getEventID(){return eventID;}
+    public String getEventName(){return eventName;}
+    public String getEventDate() {return eventDate;}
+    public String getEventReminder() {return eventReminder;}
 }

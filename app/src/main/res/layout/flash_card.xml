@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="101dp"
     android:layout_height="138dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="12dp"> <!-- Ensure no excessive padding -->
 
     <TextView
@@ -15,5 +16,16 @@
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="15sp" />
+
+    <ImageButton
+        android:id="@+id/moreOptionsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="-5dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/more_options"
+        android:padding="8dp"
+        app:srcCompat="@drawable/ic_triple_dot" />
 
 </RelativeLayout>

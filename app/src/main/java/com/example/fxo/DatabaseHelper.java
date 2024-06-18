@@ -6,7 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // Database name
@@ -208,6 +213,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Update success", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public int getFolderIDByFlashcardFolderID(int flashcardFolderID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT foldersID FROM FlashcardFolders_tbl WHERE flashcardFolderID = ?", new String[]{String.valueOf(flashcardFolderID)});
+        int folderID = -1;
+        if (cursor != null && cursor.moveToFirst()) {
+            folderID = cursor.getInt(0);
+            cursor.close();
+        }
+        return folderID;
+    }
+    public String getFolderNameByFolderID(int folderID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT folder FROM Folders_tbl WHERE foldersID = ?", new String[]{String.valueOf(folderID)});
+        String folderName = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            folderName = cursor.getString(0);
+            cursor.close();
+        }
+        return folderName;
+    }
     public Boolean insertEventData (String eventName, String eventDate, String eventReminder, int usersID){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -225,4 +251,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public Cursor getUpcomingEvents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        return db.rawQuery("SELECT * FROM Event_tbl WHERE eventDate >= ? ORDER BY eventDate ASC", new String[]{currentDate});
+    }
+
+    public Cursor getEventById(String eventId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM events WHERE _id = ?";
+        return db.rawQuery(query, new String[]{eventId});
+    }
+
+    public void updateEvent(String eventId, ContentValues values) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update("events", values, "_id = ?", new String[]{eventId});
+    }
+
+    public void deleteEvent(String eventId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("events", "_id = ?", new String[]{eventId});
+    }
 }
+

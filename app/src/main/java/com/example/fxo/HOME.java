@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HOME extends Fragment implements RecyclerViewInterface {
+public class HOME extends Fragment implements RecyclerViewInterface, FlashcardHomeInterface{
     RecyclerView recyclerView, flashview;
     FolderAdapter flashcardfolderAdapter;
     FlashcardHomeAdapter flashcardHomeAdapter;
     List<String> myFolder;
 
-    List<String> myFlashcardFolderName;
+    List<String> myFlashcardFolderName, myFlashcardFolderTitle;
     List<Integer> myFlashcardFolderID;
     List<Integer> myFolderID;
     DatabaseHelper Users_DB;
@@ -63,6 +63,7 @@ public class HOME extends Fragment implements RecyclerViewInterface {
         myFolderID = new ArrayList<>();
         myFlashcardFolderName = new ArrayList<>();
         myFlashcardFolderID = new ArrayList<>();
+        myFlashcardFolderTitle = new ArrayList<>();
 
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(lm);
@@ -112,6 +113,7 @@ public class HOME extends Fragment implements RecyclerViewInterface {
                 String dateCreated = cursor.getString(3);
 
                 myFlashcardFolderID.add(flashcardFolderID);
+                myFlashcardFolderTitle.add(title);
                 myFlashcardFolderName.add(title + "\n\n" + subject + " \n\n(" + dateCreated + ")");
             }
         }
@@ -125,6 +127,18 @@ public class HOME extends Fragment implements RecyclerViewInterface {
         Intent i = new Intent(getActivity(), FlashcardFolderActivity.class);
         User.getInstance().setFolderID(myFolderID.get(position));
         User.getInstance().setFolder(myFolder.get(position));
+        startActivity(i);
+    }
+
+    @Override
+    public void onFlashcardFolderItemClick(int position) {
+        Intent i = new Intent(getActivity(), FlashcardActivity.class);
+        User.getInstance().setFlashcardFolderID(myFlashcardFolderID.get(position));
+        User.getInstance().setFlashcardFolderTitle(myFlashcardFolderTitle.get(position));
+        int folderID = Users_DB.getFolderIDByFlashcardFolderID(myFlashcardFolderID.get(position));
+        String folderName = Users_DB.getFolderNameByFolderID(folderID);
+        User.getInstance().setFolderID(folderID);
+        User.getInstance().setFolder(folderName);
         startActivity(i);
     }
 }

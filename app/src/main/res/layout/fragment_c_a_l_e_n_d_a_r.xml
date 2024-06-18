@@ -34,26 +34,23 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="110dp"
 
-        android:background="@drawable/calendar_background"
-        />
+        android:background="@drawable/calendar_background" />
 
     <TextView
         android:id="@+id/upcomingEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="UPCOMING EVENTS:"
-        android:textSize="23dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="460dp"
-        android:layout_marginLeft="40dp"/>
+        android:text="UPCOMING EVENTS:"
+        android:textColor="@color/black"
+        android:textSize="23dp"
+        android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/upcomingEventList"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_upcoming_events"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="520dp"/>
-
+        android:layout_height="171dp"
+        android:layout_marginTop="500dp" />
 
 </FrameLayout>

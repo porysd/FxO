@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,12 +30,17 @@ public class EditFlashcardActivity extends AppCompatActivity implements Recycler
     int fcFolderID;
     String fcFolderName;
     TextView fcFolderNameText;
+
+    ImageButton backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_flashcard);
         recyclerView = findViewById(R.id.recycler);
         fcFolderNameText = findViewById(R.id.fcfoldernametext);
+        backBtn = findViewById(R.id.back_btn);
+
+        backBtn.setOnClickListener(view -> finish());
 
         Users_DB = new DatabaseHelper(this);
 
