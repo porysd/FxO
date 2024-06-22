@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
     android:layout_marginHorizontal="35dp">
 
     <TextView
@@ -11,11 +10,13 @@
         android:layout_width="291dp"
         android:layout_height="62dp"
         android:background="@drawable/sets_folder"
+        android:fontFamily="@font/josefin_sans_semibold"
         android:hint="lol"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textColorHint="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </RelativeLayout>

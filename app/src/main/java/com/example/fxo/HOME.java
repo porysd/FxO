@@ -2,6 +2,7 @@ package com.example.fxo;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,7 +117,8 @@ public class HOME extends Fragment implements RecyclerViewInterface, FlashcardHo
 
                 myFlashcardFolderID.add(flashcardFolderID);
                 myFlashcardFolderTitle.add(title);
-                myFlashcardFolderName.add(title + "\n\n" + subject + " \n\n(" + dateCreated + ")");
+                myFlashcardFolderName.add(title + "\n\n\n(" + dateCreated + ")");
+
             }
         }
         cursor.close();

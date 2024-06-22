@@ -143,10 +143,10 @@ public class SignUP extends AppCompatActivity {
                         Boolean insert = Users_DB.insertUserData(user, pass, fn, ln, bd, cn);
                         if (insert) {
                             int userID = Users_DB.getUserID(user);
-                            Users_DB.insertFolderData("Prelim", userID);
-                            Users_DB.insertFolderData("Midterms", userID);
-                            Users_DB.insertFolderData("Prefinals", userID);
-                            Users_DB.insertFolderData("Finals", userID);
+                            Users_DB.insertFolderData("PRELIM", userID);
+                            Users_DB.insertFolderData("MIDTERM", userID);
+                            Users_DB.insertFolderData("PREFINAL", userID);
+                            Users_DB.insertFolderData("FINAL", userID);
 
 
                             Toast.makeText(SignUP.this, "Register Success", Toast.LENGTH_SHORT).show();

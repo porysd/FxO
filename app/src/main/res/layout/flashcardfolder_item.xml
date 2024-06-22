@@ -12,13 +12,14 @@
         android:layout_width="291dp"
         android:layout_height="62dp"
         android:background="@drawable/sets_folder"
+        android:fontFamily="@font/josefin_sans_bold"
         android:hint="lol"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:textColor="@color/white"
         android:textColorHint="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="20sp"  />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/moreOptionsButton"
