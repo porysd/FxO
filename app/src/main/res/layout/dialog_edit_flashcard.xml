@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_bold"
         android:text="EDIT FLASHCARD"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -21,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Question" />
 
     <EditText
@@ -29,12 +31,14 @@
         android:layout_height="75dp"
         android:layout_marginTop="4dp"
         android:background="@android:color/darker_gray"
+        android:fontFamily="@font/poppins_semibold"
         android:padding="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Answer" />
 
     <EditText
@@ -43,6 +47,7 @@
         android:layout_height="75dp"
         android:layout_marginTop="4dp"
         android:background="@android:color/darker_gray"
+        android:fontFamily="@font/poppins_semibold"
         android:padding="8dp" />
 
     <LinearLayout
@@ -59,6 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
+            android:fontFamily="@font/poppins_bold"
             android:text="Back" />
 
         <Button
@@ -67,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
+            android:fontFamily="@font/poppins_bold"
             android:text="Delete" />
 
         <Button
@@ -75,6 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
+            android:fontFamily="@font/poppins_bold"
             android:text="Save" />
     </LinearLayout>
 </LinearLayout>

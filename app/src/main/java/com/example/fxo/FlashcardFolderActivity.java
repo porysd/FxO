@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FlashcardFolderActivity extends AppCompatActivity implements RecyclerViewInterface {
-    Button addFlashcardButton, backBtn;
+    Button addFlashcardButton;
+    ImageButton backBtn;
     RecyclerView recyclerView;
     FlashcardFolderAdapter flashcardFolderAdapter;
-    TextView folderTextView, noTableText;
+    TextView folderTextView, noTableText, fN;
     List<String> myFlashcardFolderName;
     List<Integer> myFlashcardFolderID;
     int folderID, userID;
@@ -37,6 +39,8 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
         recyclerView = findViewById(R.id.recycler);
         addFlashcardButton = findViewById(R.id.addflashcard_btn);
         backBtn = findViewById(R.id.back_btn);
+        fN = findViewById(R.id.flName);
+
 
         // Initialize Database Helper
         Users_DB = new DatabaseHelper(this);
@@ -50,6 +54,9 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
         folderName = User.getInstance().getFolder();
         userID = User.getInstance().getUserID();
         folderTextView.setText("Folder ID: " + folderID + " Folder Name: " + folderName);
+
+        fN.setText(folderName);
+
 
         // Set up RecyclerView
         LinearLayoutManager lm = new LinearLayoutManager(this);

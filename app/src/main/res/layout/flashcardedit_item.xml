@@ -9,24 +9,26 @@
         android:id="@+id/questionitem"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:layout_marginEnd="5dp"
         android:layout_weight="1"
         android:background="@drawable/edit_flashcard"
-        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/varela_round"
         android:padding="8dp"
-        android:textColor="@color/black"
         android:text="Question"
+        android:textColor="@color/black"
         android:textSize="20dp" />
 
     <TextView
         android:id="@+id/answeritem"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:layout_marginStart="5dp"
         android:layout_weight="1"
         android:background="@drawable/edit_flashcard"
-        android:layout_marginStart="5dp"
+        android:fontFamily="@font/varela_round"
         android:padding="8dp"
-        android:textColor="@color/black"
         android:text="Answer"
+        android:textColor="@color/black"
         android:textColorHint="#FFFFFF"
         android:textSize="20dp" />
 

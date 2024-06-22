@@ -11,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/sets_folder"
+        android:fontFamily="@font/poppins_bold"
         android:hint="lol"
         android:paddingLeft="15dp"
         android:paddingTop="5dp"
         android:textColor="@color/white"
         android:textColorHint="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
     <ImageButton
         android:id="@+id/moreOptionsButton"

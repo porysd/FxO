@@ -9,12 +9,13 @@
         android:id="@+id/choosetxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Choose"
-        android:textColor="@color/white"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Choose"
+        android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="25dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/Flashcards"
@@ -33,10 +34,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/poppins_semibold"
             android:text="Flashcards"
             android:textColor="@color/white"
-            android:layout_marginLeft="30dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -57,10 +59,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/poppins_semibold"
             android:text="Events"
             android:textColor="@color/white"
-            android:layout_marginLeft="30dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
     </LinearLayout>
 

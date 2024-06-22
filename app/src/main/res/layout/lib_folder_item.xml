@@ -11,11 +11,13 @@
         android:layout_width="291dp"
         android:layout_height="113dp"
         android:background="@drawable/lib_sets_folder"
+        android:fontFamily="@font/poppins_bold"
         android:hint="lol"
-        android:paddingLeft="15dp"
-        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="15dp"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textColorHint="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </RelativeLayout>
