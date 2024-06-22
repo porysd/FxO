@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.regex.Pattern;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -44,11 +45,10 @@ public class SignUP extends AppCompatActivity {
 
         show = findViewById(R.id.checkBox);
         signUp = findViewById(R.id.btnSUP);
-
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCustomDialog();
+                ValidateShowCustomDialog();
             }
         });
 
@@ -75,6 +75,36 @@ public class SignUP extends AppCompatActivity {
         });
     }
 
+    private boolean isValidContactNo(String contact) {
+        String contactPattern = "^\\d{11}$"; // ^ - start , \\d - digit , {11} - 11 required digit , $ - end
+        return Pattern.matches(contactPattern, contact); // .matches() - to match an entire string pattern, returns a bool value if it matches or not.
+    }   //contactPattern - represents the regex expression to match in 'contact'
+    //contact - a string to match to our regex pattern of 'contactPattern'
+
+    private boolean isValidBirthDate(String birthDate) {
+        String birthDatePattern = "^\\d{2}/\\d{2}/\\d{4}$"; // same explanation in isValidContactNo
+        return Pattern.matches(birthDatePattern, birthDate); // same explanation of regex pattern in isValidContactNo
+    }
+
+    private void ValidateShowCustomDialog() { // i made this method because showCustomDialog after i tested without this method it shows the dialog first of welcome shit then the toast pops up example is 'invalid contact number'. so i made this so that the last dialog will be called up after done checking all the inputs, contact no, and birthdate.
+        String user = userName.getText().toString().trim(); // .trim() - a method to 'remove whitespace'
+        String pass = password.getText().toString().trim();
+        String fn = firstName.getText().toString().trim();
+        String ln = lastName.getText().toString().trim();
+        String bd = birthDate.getText().toString().trim();
+        String cn = contactNo.getText().toString().trim();
+
+        if (user.isEmpty() || pass.isEmpty() || fn.isEmpty() || ln.isEmpty() || bd.isEmpty() || cn.isEmpty()) {
+            Toast.makeText(SignUP.this, "Put input in everything!!", Toast.LENGTH_SHORT).show();
+        } else if (!isValidContactNo(cn)) {
+            Toast.makeText(SignUP.this, "Invalid contact number.", Toast.LENGTH_SHORT).show();
+        } else if (!isValidBirthDate(bd)) {
+            Toast.makeText(SignUP.this, "Invalid Birthdate. Format MM/DD/YYYY", Toast.LENGTH_SHORT).show();
+        } else {
+            showCustomDialog(); // call this method after the validation is done, to make sure that the dialog will pop up at last when registered.
+        }
+    }
+
     private void showCustomDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialogforsignup);
@@ -96,12 +126,13 @@ public class SignUP extends AppCompatActivity {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user = userName.getText().toString();
-                String pass = password.getText().toString();
-                String fn = firstName.getText().toString();
-                String ln = lastName.getText().toString();
-                String bd = birthDate.getText().toString();
-                String cn = contactNo.getText().toString();
+                String user = userName.getText().toString().trim();
+                String pass = password.getText().toString().trim();
+                String fn = firstName.getText().toString().trim();
+                String ln = lastName.getText().toString().trim();
+
+                String bd = birthDate.getText().toString().trim();
+                String cn = contactNo.getText().toString().trim();
 
 
                 if (user.isEmpty() || pass.isEmpty() || fn.isEmpty() || ln.isEmpty() || bd.isEmpty() || cn.isEmpty()) {

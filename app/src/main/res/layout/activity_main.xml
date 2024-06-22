@@ -15,35 +15,38 @@
         android:layout_width="219dp"
         android:layout_height="85dp"
         android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/poppins_bold"
         android:shadowColor="#E8E7E7"
-        android:text="ECLIPSE"
         android:shadowDx="0.1"
         android:shadowDy="0.1"
         android:shadowRadius="5"
+        android:text="ECLIPSE"
         android:textColor="#FFFFFF"
         android:textSize="55sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.195" />
+        app:layout_constraintVertical_bias="0.197" />
 
     <TextView
         android:id="@+id/textViewSubtitle"
-        android:layout_width="207dp"
+        android:layout_width="220dp"
         android:layout_height="79dp"
         android:layout_gravity="center_horizontal"
-        android:fontFamily=""
+        android:fontFamily="@font/josefin_sans_bold"
+        android:letterSpacing=".1"
         android:text="Unlock Your Potential."
         android:textColor="#000000"
-        android:textSize="27sp"
+        android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.338"
+        app:layout_constraintHorizontal_bias="0.342"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.678" />
+        app:layout_constraintVertical_bias="0.645" />
 
     <Button
         android:id="@+id/buttonGetStarted"
@@ -69,14 +72,15 @@
         android:layout_width="232dp"
         android:layout_height="97dp"
         android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/varela_round"
         android:text="Create assessments, build flashcards, and master your subjects."
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.804" />
+        app:layout_constraintVertical_bias="0.797" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
