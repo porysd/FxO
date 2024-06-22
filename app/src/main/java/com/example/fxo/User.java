@@ -163,7 +163,15 @@ public class User {
 
     // Event table
     public int getEventID(){return eventID;}
+
+    public void setEventID(int eventID){this.eventID = eventID;}
     public String getEventName(){return eventName;}
+
+    public void setEventName(String eventName) {this.eventName = eventName;}
     public String getEventDate() {return eventDate;}
+
+    public void setEventDate(String eventDate){this.eventDate = eventDate;}
     public String getEventReminder() {return eventReminder;}
+
+    public void setEventReminder(String eventReminder){this.eventReminder = eventReminder;}
 }

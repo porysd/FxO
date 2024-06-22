@@ -133,7 +133,6 @@ public class FlashcardActivity extends AppCompatActivity {
             } else {
                 frontAnim.setTarget(backCard);
                 backBtnAnim.setTarget(frontCard);
-                frontAnim.start();
                 backBtnAnim.start();
                 isFront = true;
                 nextBtn.performClick();
@@ -159,7 +158,6 @@ public class FlashcardActivity extends AppCompatActivity {
             } else {
                 frontAnim.setTarget(backCard);
                 backBtnAnim.setTarget(frontCard);
-                frontAnim.start();
                 backBtnAnim.start();
                 isFront = true;
                 prevBtn.performClick();

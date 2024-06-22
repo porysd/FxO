@@ -6,14 +6,20 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class UpcomingEventAdapter extends RecyclerView.Adapter<UpcomingEventAdapter.ViewHolder> {
 
     private Context context;
+
+    List<String> eventName;
+    List<Integer> eventID;
     private Cursor cursor;
 
     public UpcomingEventAdapter(Context context, Cursor cursor) {
@@ -30,31 +36,26 @@ public class UpcomingEventAdapter extends RecyclerView.Adapter<UpcomingEventAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (!cursor.moveToPosition(position)) {
-            return;
-        }
-
-        String eventName = cursor.getString(cursor.getColumnIndex("eventName"));
-        String eventDate = cursor.getString(cursor.getColumnIndex("eventDate"));
-        String eventReminder = cursor.getString(cursor.getColumnIndex("eventReminder"));
-
-
-        String eventDetails = "Event: " + eventName + "\nDate: " + eventDate + "\nTime " + eventReminder;
-        holder.eventDetails.setText(eventDetails);
-
+        String eventname = eventName.get(position);
+        holder.eventDetails.setText(eventname);
     }
 
     @Override
     public int getItemCount() {
-        return cursor.getCount();
+        return eventName.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView eventDetails;
 
+        ImageButton moreOptionsButton;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            eventDetails = itemView.findViewById(R.id.event_details);
+            eventDetails = itemView.findViewById(R.id.flashcardView);
+            moreOptionsButton = itemView.findViewById(R.id.moreOptionsButton);
+
+
         }
     }
 }
