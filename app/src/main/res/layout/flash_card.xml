@@ -26,6 +26,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/more_options"
         android:padding="8dp"
-        app:srcCompat="@drawable/ic_triple_dot" />
+        app:srcCompat="@drawable/ic_triple_dot"
+        app:tint="#000000" />
 
 </RelativeLayout>

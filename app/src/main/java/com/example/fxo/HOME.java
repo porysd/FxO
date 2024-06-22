@@ -72,7 +72,7 @@ public class HOME extends Fragment implements RecyclerViewInterface, FlashcardHo
 
         LinearLayoutManager lm1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         flashview.setLayoutManager(lm1);
-        flashcardHomeAdapter = new FlashcardHomeAdapter(getActivity(), myFlashcardFolderName, this);
+        flashcardHomeAdapter = new FlashcardHomeAdapter(getActivity(), myFlashcardFolderName, myFlashcardFolderID,this);
         flashview.setAdapter(flashcardHomeAdapter);
 
         getData();
@@ -126,7 +126,7 @@ public class HOME extends Fragment implements RecyclerViewInterface, FlashcardHo
     public void onItemClick(int position) {
         Intent i = new Intent(getActivity(), FlashcardFolderActivity.class);
         User.getInstance().setFolderID(myFolderID.get(position));
-        User.getInstance().setFolder(myFolder.get(position));
+            User.getInstance().setFolder(myFolder.get(position));
         startActivity(i);
     }
 

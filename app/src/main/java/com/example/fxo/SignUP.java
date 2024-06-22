@@ -120,7 +120,8 @@ public class SignUP extends AppCompatActivity {
 
                             Toast.makeText(SignUP.this, "Register Success", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUP.this, Nav.class);
-                            i.putExtra("USERID", userID); // Pass the userId to the next activity
+                            User.getInstance().setUserID(userID);
+
                             startActivity(i);
                         } else {
                             Toast.makeText(SignUP.this, "Register Failed", Toast.LENGTH_SHORT).show();

@@ -7,7 +7,7 @@ public class User {
     private int flashcardID;
     private int folderID;
     private int eventID;
-    private int contactNo;
+    private String contactNo;
 
     private int flashcardFolderID;
     private String userName;
@@ -45,11 +45,11 @@ public class User {
         this.userID = userID;
     }
 
-    public int getContactNo() {
+    public String getContactNo() {
         return contactNo;
     }
 
-    public void setContactNo(int contactNo) {
+    public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
     }
 

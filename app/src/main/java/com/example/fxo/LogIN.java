@@ -57,7 +57,9 @@ public class LogIN extends AppCompatActivity {
                 if (userID != null) {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), Nav.class);
+                    //Users_DB.getUserDetailsByID(userID);
                     User.getInstance().setUserID(userID);
+
                     startActivity(i);
                 } else {
                     Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();

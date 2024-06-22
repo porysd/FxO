@@ -95,7 +95,9 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
     public void onItemClick(int position) {
         Intent i = new Intent(FlashcardFolderActivity.this, FlashcardActivity.class);
         User.getInstance().setFlashcardFolderID(myFlashcardFolderID.get(position));
+        Toast.makeText(FlashcardFolderActivity.this, "fcfID: " + myFlashcardFolderID.get(position), Toast.LENGTH_SHORT).show();
         User.getInstance().setFlashcardFolderTitle(myFlashcardFolderName.get(position));
+        Toast.makeText(FlashcardFolderActivity.this, "fcfname: "+myFlashcardFolderName.get(position), Toast.LENGTH_SHORT).show();
         startActivity(i);
     }
 }

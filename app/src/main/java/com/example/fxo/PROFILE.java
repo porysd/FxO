@@ -31,16 +31,11 @@ public class PROFILE extends Fragment {
         contact = view.findViewById(R.id.pfContact);
         birthdate = view.findViewById(R.id.pfBirthdate);
 
-        User user = User.getInstance();
-
-        String first = user.getFirstName();
-        String last = user.getLastName();
-
-        fullname.setText(first + " " + last);
-        username.setText("@" + user.getUserName());
-        name.setText("NAME: " + first + " " + last);
-        contact.setText("CONTACT: " + user.getContactNo());
-        birthdate.setText("BIRTHDATE: " + user.getBirthDate());
+        fullname.setText(User.getInstance().getFirstName() + " " + User.getInstance().getLastName());
+        username.setText("@" + User.getInstance().getUserName());
+        name.setText("NAME: " + User.getInstance().getFirstName() + " " + User.getInstance().getLastName());
+        contact.setText("CONTACT: " + User.getInstance().getContactNo());
+        birthdate.setText("BIRTHDATE: " + User.getInstance().getBirthDate());
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
