@@ -163,19 +163,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Method to retrieve the user data in Profile page
-    /**
+
     public void getUserDetailsByID(int usersID){
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT username, firstname, lastname, birthdate, contactno FROM Users_tbl WHERE usersID = ? ";
 
         Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(usersID)});
-
-        User.getInstance().setUserName(cursor.getString(0));
-        User.getInstance().setFirstName(cursor.getString(1));
-        User.getInstance().setLastName(cursor.getString(2));
-        User.getInstance().setBirthDate(cursor.getString(3));
-        User.getInstance().setContactNo(cursor.getString(4));
-    }**/
+        if (cursor != null && cursor.moveToFirst()) {
+            User.getInstance().setUserName(cursor.getString(0));
+            User.getInstance().setFirstName(cursor.getString(1));
+            User.getInstance().setLastName(cursor.getString(2));
+            User.getInstance().setBirthDate(cursor.getString(3));
+            User.getInstance().setContactNo(cursor.getString(4));
+            cursor.close();
+        }
+    }
     //Method to delete flashcardID
     public boolean deleteData(String flashcardFolderID) {
         SQLiteDatabase db = this.getWritableDatabase();

@@ -25,7 +25,6 @@ public class LogIN extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_log_in);
 
         // Initialize UI components
@@ -57,8 +56,9 @@ public class LogIN extends AppCompatActivity {
                 if (userID != null) {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), Nav.class);
-                    //Users_DB.getUserDetailsByID(userID);
                     User.getInstance().setUserID(userID);
+
+                    Users_DB.getUserDetailsByID(userID);
 
                     startActivity(i);
                 } else {
