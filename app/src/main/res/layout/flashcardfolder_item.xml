@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="134dp"
+    android:layout_height="184dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_marginHorizontal="35dp">
+    android:layout_margin="12dp">
 
     <TextView
         android:id="@+id/flashcardfolder_name"
-        android:layout_width="291dp"
-        android:layout_height="62dp"
-        android:background="@drawable/sets_folder"
-        android:fontFamily="@font/josefin_sans_bold"
-        android:hint="lol"
-        android:paddingLeft="15dp"
-        android:paddingTop="5dp"
-        android:textColor="@color/white"
-        android:textColorHint="#FFFFFF"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/hp_flashcard"
+        android:hint="FC"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="15sp" />
 
     <ImageButton
         android:id="@+id/moreOptionsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-5dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/more_options"
         android:padding="8dp"
-        app:srcCompat="@drawable/ic_triple_dot" />
+        app:srcCompat="@drawable/ic_triple_dot"
+        app:tint="#000000" />
+
 </RelativeLayout>

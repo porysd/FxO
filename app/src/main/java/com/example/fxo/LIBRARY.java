@@ -24,9 +24,6 @@ public class LIBRARY extends Fragment implements RecyclerViewInterface {
     RecyclerView recyclerView;
     LibraryFolderAdapter flashcardfolderAdapter;
 
-    FlashcardHomeAdapter flashcardHomeAdapter;
-
-    List<String> myTitle;
     List<String> myFolder;
     List<Integer> myFolderID;
     DatabaseHelper Users_DB;

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,7 +60,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
 
 
         // Set up RecyclerView
-        LinearLayoutManager lm = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager lm = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(lm);
         flashcardFolderAdapter = new FlashcardFolderAdapter(this, myFlashcardFolderName, myFlashcardFolderID, this);
         recyclerView.setAdapter(flashcardFolderAdapter);

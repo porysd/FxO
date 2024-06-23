@@ -43,21 +43,22 @@
         android:layout_width="match_parent"
         android:layout_height="800dp"
         android:layout_below="@id/back_btn"
-        android:layout_marginTop="36dp"
-        android:background="@color/white"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/profile_back"
         android:orientation="vertical"
-
         android:padding="16dp">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profile_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="108dp"
+            android:layout_height="108dp"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/pfp"
             android:contentDescription="Profile picture"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/CircleImageView"
+            app:srcCompat="@drawable/pfp" />
 
         <TextView
             android:id="@+id/pfFULLNAME"

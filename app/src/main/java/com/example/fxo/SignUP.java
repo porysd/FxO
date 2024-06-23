@@ -25,6 +25,7 @@ public class SignUP extends AppCompatActivity {
     EditText firstName, lastName, birthDate, contactNo, userName, password;
     Button signUp;
     CheckBox show;
+    int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class SignUP extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ValidateShowCustomDialog();
+
             }
         });
 
@@ -93,6 +95,7 @@ public class SignUP extends AppCompatActivity {
         String ln = lastName.getText().toString().trim();
         String bd = birthDate.getText().toString().trim();
         String cn = contactNo.getText().toString().trim();
+
 
         if (user.isEmpty() || pass.isEmpty() || fn.isEmpty() || ln.isEmpty() || bd.isEmpty() || cn.isEmpty()) {
             Toast.makeText(SignUP.this, "Put input in everything!!", Toast.LENGTH_SHORT).show();
@@ -148,6 +151,9 @@ public class SignUP extends AppCompatActivity {
                             Users_DB.insertFolderData("PREFINAL", userID);
                             Users_DB.insertFolderData("FINAL", userID);
 
+                             User.getInstance().setUserID(userID);
+
+                            Users_DB.getUserDetailsByID(userID);
 
                             Toast.makeText(SignUP.this, "Register Success", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(SignUP.this, Nav.class);

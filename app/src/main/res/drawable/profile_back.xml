@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Black background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0D0E10"/>
+        </shape>
+    </item>
+
+    <!-- White rounded rectangle -->
+    <item
+        android:left="0dp"
+        android:right="0dp"
+        android:top="60dp"> <!-- Adjust the top margin as needed -->
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF"/>
+            <corners android:topLeftRadius="16dp"
+                android:topRightRadius="16dp"/>
+        </shape>
+    </item>
+
+    <!-- Circle overlay -->
+    <item
+        android:width="150dp"
+        android:height="150dp"
+        android:gravity="top|center_horizontal"
+        android:top="15dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/white"/>
+            <size android:width="125dp" android:height="125dp"/>
+        </shape>
+    </item>
+</layer-list>

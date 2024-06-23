@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:paddingLeft="30dp"
+            android:fontFamily="@font/poppins_bold"
             android:paddingTop="15dp"
             android:text="CALENDAR"
             android:textStyle="bold"
@@ -29,20 +30,22 @@
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        style="@android:style/Widget.Material.Light.CalendarView"
+        android:layout_width="295dp"
+        android:layout_height="305dp"
+        android:layout_marginLeft="35dp"
         android:layout_marginTop="110dp"
-
-        android:background="@drawable/calendar_background" />
+        android:background="@drawable/calendar_background"
+        android:theme="@style/CalenderViewCustom"  />
 
     <TextView
         android:id="@+id/upcomingEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="460dp"
-        android:text="UPCOMING EVENTS:"
+        android:layout_marginTop="430dp"
+        android:text="PLANNER:"
+        android:fontFamily="@font/poppins_bold"
         android:textColor="@color/black"
         android:textSize="23dp"
         android:textStyle="bold" />
@@ -51,6 +54,6 @@
         android:id="@+id/recyclerView_upcoming_events"
         android:layout_width="match_parent"
         android:layout_height="171dp"
-        android:layout_marginTop="500dp" />
+        android:layout_marginTop="480dp" />
 
 </FrameLayout>
