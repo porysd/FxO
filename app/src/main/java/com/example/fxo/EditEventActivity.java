@@ -1,162 +1,190 @@
 package com.example.fxo;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Locale;
 
 public class EditEventActivity extends AppCompatActivity {
 
-    private EditText editEventName;
-    private TextView editEventDate, editEventTime;
-    private Button saveButton;
-    private DatabaseHelper dbHelper;
-    private String eventId;
-    private int hour, min;
-    private DatePickerDialog datePickerDialog;
+    EditText editEventName;
+
+    DatabaseHelper Users_DB;
+    TextView editEventDate, editEventTime;
+    Button saveButton, backButton;
+
+    Calendar eventCalendar;
+
+    int eventId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_event);
 
-        dbHelper = new DatabaseHelper(this);
+        // Initialize DatabaseHelper instance
+        Users_DB = new DatabaseHelper(this);
 
-        editEventName = findViewById(R.id.editEventName);
-        editEventDate = findViewById(R.id.editEventDate);
+        // Initialize views
+        editEventName = findViewById(R.id.editEventNames);
+        editEventDate = findViewById(R.id.editEventDates);
         editEventTime = findViewById(R.id.editEventTime);
         saveButton = findViewById(R.id.saveButton);
+        backButton = findViewById(R.id.backButton);
 
-        eventId = getIntent().getStringExtra("eventId");
+        eventCalendar = Calendar.getInstance();
 
-        loadEventDetails(eventId);
-
-        initDatePicker();
-
-        editEventDate.setOnClickListener(v -> datePickerDialog.show());
-
-        editEventTime.setOnClickListener(v -> showReminderDialog());
-
-        saveButton.setOnClickListener(v -> saveEventDetails());
-    }
-
-    private void loadEventDetails(String eventId) {
-        Cursor cursor = dbHelper.getEventById(eventId);
-        if (cursor.moveToFirst()) {
-            editEventName.setText(cursor.getString(cursor.getColumnIndex("eventName")));
-            editEventDate.setText(cursor.getString(cursor.getColumnIndex("eventDate")));
-            editEventTime.setText(cursor.getString(cursor.getColumnIndex("eventReminder")));
+        // Retrieve event ID from intent extras
+        eventId = getIntent().getIntExtra("eventId", -1);
+        if (eventId == -1) {
+            // Handle invalid event ID scenario
+            Toast.makeText(this, "Invalid Event ID", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
-        cursor.close();
+
+        fetchEventDetails();
+
+        setupDateTimePickers();
+
+        // Save button click listener
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateEvent();
+            }
+        });
+
+        // Back button click listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Implement back functionality (optional)
+                finish(); // Close activity
+            }
+        });
     }
 
-    private void saveEventDetails() {
-        String eventName = editEventName.getText().toString();
-        String eventDate = editEventDate.getText().toString();
-        String eventTime = editEventTime.getText().toString();
+    // Method to fetch event details and populate UI fields
+    private void fetchEventDetails() {
 
+        String eventName = "Sample Event";
+        String eventDate = "01/01/2025";
+        String eventTime = "12:00 PM";
+
+        // Populate UI fields
+        editEventName.setText(eventName);
+        editEventDate.setText(eventDate);
+        editEventTime.setText(eventTime);
+    }
+
+    // Method to setup date and time pickers
+    private void setupDateTimePickers() {
+        // Date picker dialog
+        editEventDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(EditEventActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                eventCalendar.set(Calendar.YEAR, year);
+                                eventCalendar.set(Calendar.MONTH, monthOfYear);
+                                eventCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                updateDateLabel();
+                            }
+                        },
+                        eventCalendar.get(Calendar.YEAR),
+                        eventCalendar.get(Calendar.MONTH),
+                        eventCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+
+        // Time picker dialog
+        editEventTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(EditEventActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                eventCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                eventCalendar.set(Calendar.MINUTE, minute);
+                                updateTimeLabel();
+                            }
+                        },
+                        eventCalendar.get(Calendar.HOUR_OF_DAY),
+                        eventCalendar.get(Calendar.MINUTE),
+                        false); // 24 hour format
+                timePickerDialog.show();
+            }
+        });
+    }
+
+    // Method to update date label
+    private void updateDateLabel() {
+        String myFormat = "MM/dd/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        editEventDate.setText(sdf.format(eventCalendar.getTime()));
+    }
+
+    // Method to update time label
+    private void updateTimeLabel() {
+        String myFormat = "hh:mm a";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        editEventTime.setText(sdf.format(eventCalendar.getTime()));
+    }
+
+    // Method to update event details
+    private void updateEvent() {
+        String eventName = editEventName.getText().toString().trim();
+        String eventDate = editEventDate.getText().toString().trim();
+        String eventTime = editEventTime.getText().toString().trim();
+
+        // Validate inputs (optional)
         if (eventName.isEmpty() || eventDate.isEmpty() || eventTime.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        ContentValues values = new ContentValues();
-        values.put("eventName", eventName);
-        values.put("eventDate", eventDate);
-        values.put("eventReminder", eventTime);
-
-        dbHelper.updateEvent(eventId, values);
-
-        Toast.makeText(this, "Event updated", Toast.LENGTH_SHORT).show();
-        finish();
-    }
-
-    private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
-            month = month + 1;
-            String date = makeDateString(day, month, year);
-            editEventDate.setText(date);
-        };
-
-        Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-
-        int style = AlertDialog.THEME_HOLO_LIGHT;
-
-        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
-    }
-
-    private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month) + "/" + day + "/" + year;
-    }
-
-    private String getMonthFormat(int month) {
-        switch (month) {
-            case 1:
-                return "JAN";
-            case 2:
-                return "FEB";
-            case 3:
-                return "MAR";
-            case 4:
-                return "APR";
-            case 5:
-                return "MAY";
-            case 6:
-                return "JUN";
-            case 7:
-                return "JUL";
-            case 8:
-                return "AUG";
-            case 9:
-                return "SEP";
-            case 10:
-                return "OCT";
-            case 11:
-                return "NOV";
-            case 12:
-                return "DEC";
-            default:
-                return "JAN";
+        // Update event in database
+        boolean updated = Users_DB.updateEvent(eventId, eventName, eventDate, eventTime);
+        if (updated) {
+            Toast.makeText(this, "Event updated successfully", Toast.LENGTH_SHORT).show();
+            notifyCalendarFragment();
+            finish();
+        } else {
+            Toast.makeText(this, "Failed to update event", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void showReminderDialog() {
-        TimePickerDialog tpd = new TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                (view, hourOfDay, minute) -> {
-                    hour = hourOfDay;
-                    min = minute;
+    // Method to notify CALENDAR fragment to refresh events
+    private void notifyCalendarFragment() {
+        // Get reference to CALENDAR fragment
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment fragment = manager.findFragmentByTag("CALENDAR_TAG");
 
-                    String time = hour + ":" + min;
-                    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-
-                    try {
-                        Date date = timeFormat.parse(time);
-                        SimpleDateFormat time12hrs = new SimpleDateFormat("hh:mm aa");
-                        editEventTime.setText(time12hrs.format(date));
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
-                    }
-                }, 12, 0, false);
-        tpd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        tpd.updateTime(hour, min);
-        tpd.show();
+        if (fragment != null && fragment instanceof CALENDAR) {
+            ((CALENDAR) fragment).refreshEvents();
+        }
     }
+
 }

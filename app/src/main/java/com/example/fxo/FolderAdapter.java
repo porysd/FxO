@@ -21,7 +21,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
     private final Context context;
     private final List<String> folders;
 
-    // Constructor to initialize context, folders list, and the interface
+
     public FolderAdapter(Context context, List<String> folders, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.folders = folders;

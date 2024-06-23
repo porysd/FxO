@@ -23,11 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HOME extends Fragment implements RecyclerViewInterface, FlashcardHomeInterface{
-    RecyclerView recyclerView, flashview;
+    RecyclerView setView, flashview;
     FolderAdapter flashcardfolderAdapter;
     FlashcardHomeAdapter flashcardHomeAdapter;
     List<String> myFolder;
-
     List<String> myFlashcardFolderName, myFlashcardFolderTitle;
     List<Integer> myFlashcardFolderID;
     List<Integer> myFolderID;
@@ -42,25 +41,24 @@ public class HOME extends Fragment implements RecyclerViewInterface, FlashcardHo
         View view = inflater.inflate(R.layout.fragment_h_o_m_e, container, false);
 
         // Initialize UI components
-        recyclerView = view.findViewById(R.id.recycler);
+        setView = view.findViewById(R.id.recycler);
         textView2 = view.findViewById(R.id.textView2);
         flashview = view.findViewById(R.id.flashview);
         seeAll = view.findViewById(R.id.seeAll);
         notify = view.findViewById(R.id.notify);
-
-        seeAll.setOnClickListener(v -> {
-            Intent i = new Intent(getActivity(), FlashcardFolderActivity.class);
-            startActivity(i);
-        });
 
         notify.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), NotificationActivity.class);
             startActivity(intent);
         });
 
+        seeAll.setOnClickListener(v -> {
+            Intent i = new Intent(getActivity(), FlashcardFolderActivity.class);
+            startActivity(i);
+        });
+
         userID = User.getInstance().getUserID();
         textView2.setText("Users Account: " + userID);
-
         Users_DB = new DatabaseHelper(getActivity());
         myFolder = new ArrayList<>();
         myFolderID = new ArrayList<>();
@@ -69,9 +67,9 @@ public class HOME extends Fragment implements RecyclerViewInterface, FlashcardHo
         myFlashcardFolderTitle = new ArrayList<>();
 
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(lm);
+        setView.setLayoutManager(lm);
         flashcardfolderAdapter = new FolderAdapter(getActivity(), myFolder, this);
-        recyclerView.setAdapter(flashcardfolderAdapter);
+        setView.setAdapter(flashcardfolderAdapter);
 
         LinearLayoutManager lm1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         flashview.setLayoutManager(lm1);

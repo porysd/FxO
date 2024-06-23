@@ -133,7 +133,3 @@ public class FlashcardHomeAdapter extends RecyclerView.Adapter<FlashcardHomeAdap
     }
 }
 
-
-// get date created
-// get recent opened flashcards
-// apply the recent opened flashcard in home page

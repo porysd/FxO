@@ -3,23 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/white">
 
     <EditText
-        android:id="@+id/editEventName"
+        android:id="@+id/editEventNames"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Event Name" />
 
     <TextView
-        android:id="@+id/editEventDate"
+        android:id="@+id/editEventDates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Event Date"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:clickable="true"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/editEventTime"
@@ -29,11 +31,34 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:clickable="true"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:layout_marginTop="8dp" />
 
-    <Button
-        android:id="@+id/saveButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save" />
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Back" />
+
+
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Save" />
+    </LinearLayout>
 </LinearLayout>

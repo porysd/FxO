@@ -15,26 +15,41 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CALENDAR extends Fragment {
 
     RecyclerView recyclerView;
     UpcomingEventAdapter adapter;
-    DatabaseHelper dbHelper;
+    DatabaseHelper Users_DB;
     CalendarView calendarView;
+
+    List<String> eventFolder;
+    List<Integer> eventID;
+    int userID;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_c_a_l_e_n_d_a_r, container, false);
 
-        dbHelper = new DatabaseHelper(getContext());
-        recyclerView = view.findViewById(R.id.recyclerView_upcoming_events);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        userID = User.getInstance().getUserID();
+        Users_DB = new DatabaseHelper(getActivity());
+        eventFolder = new ArrayList<>();
+        eventID = new ArrayList<>();
 
-        Cursor cursor = dbHelper.getUpcomingEvents();
-        adapter = new UpcomingEventAdapter(getContext(), cursor);
+        recyclerView = view.findViewById(R.id.recyclerView_upcoming_events);
+
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(lm);
+        adapter = new UpcomingEventAdapter(getActivity(), eventFolder, eventID);
         recyclerView.setAdapter(adapter);
+
+        // Load initial data
+        getData();
 
         calendarView = view.findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -47,5 +62,37 @@ public class CALENDAR extends Fragment {
         });
 
         return view;
+    }
+
+    // Method to fetch data from database and update RecyclerView
+    private void getData() {
+        eventFolder.clear();
+        eventID.clear();
+
+        Cursor cursor = Users_DB.getUpcomingEvents();
+        if (cursor.getCount() == 0) {
+            Toast.makeText(getActivity(), "No events found", Toast.LENGTH_SHORT).show();
+        } else {
+            while (cursor.moveToNext()) {
+                if (cursor.getInt(4) == userID) {
+                    eventID.add(cursor.getInt(0));
+                    String title = cursor.getString(1);
+                    String date = cursor.getString(2);
+                    String time = cursor.getString(3);
+
+                    eventFolder.add("Event: " + title + "\n" + "Date: " + date + "\n" + "Time: " + time);
+
+
+
+                }
+            }
+            adapter.notifyDataSetChanged(); // Notify adapter of data change
+        }
+        cursor.close();
+    }
+
+    // Call this method whenever a new event is added to refresh the RecyclerView
+    public void refreshEvents() {
+        getData();
     }
 }

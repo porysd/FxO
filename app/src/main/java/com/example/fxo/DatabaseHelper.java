@@ -259,35 +259,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("eventReminder", eventReminder);
         contentValues.put("usersID", usersID);
 
-        Toast.makeText(context, "MAMAmo" + eventName, Toast.LENGTH_SHORT).show();
-        Toast.makeText(context, "date" + eventDate, Toast.LENGTH_SHORT).show();
-        Toast.makeText(context, "notif" + eventReminder, Toast.LENGTH_SHORT).show();
-        Toast.makeText(context, "id" + usersID, Toast.LENGTH_SHORT).show();
-
         long result = db.insert("Event_tbl", null, contentValues);
         return result != -1;
     }
 
     public Cursor getUpcomingEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        return db.rawQuery("SELECT * FROM Event_tbl WHERE eventDate >= ? ORDER BY eventDate ASC", new String[]{currentDate});
+        return db.rawQuery("SELECT * FROM Event_tbl", null);
     }
 
-    public Cursor getEventById(String eventId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM events WHERE _id = ?";
-        return db.rawQuery(query, new String[]{eventId});
-    }
 
-    public void updateEvent(String eventId, ContentValues values) {
+
+    public boolean updateEvent(int eventId, String eventName, String eventDate, String eventReminder) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update("events", values, "_id = ?", new String[]{eventId});
+        ContentValues values = new ContentValues();
+        values.put("eventName", eventName);
+        values.put("eventDate", eventDate);
+        values.put("eventReminder", eventReminder);
+
+        // Updating event record
+        int rowsAffected = db.update("Event_tbl", values, "eventID = ?", new String[]{String.valueOf(eventId)});
+        db.close();
+
+        return rowsAffected > 0;
     }
 
-    public void deleteEvent(String eventId) {
+    public boolean deleteEvent(int eventId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("events", "_id = ?", new String[]{eventId});
+        int affectedRows = db.delete("Event_tbl", "eventID=?", new String[]{String.valueOf(eventId)});
+        return affectedRows > 0;
     }
 }
 
