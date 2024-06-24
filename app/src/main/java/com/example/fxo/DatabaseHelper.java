@@ -265,10 +265,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getUpcomingEvents() {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.rawQuery("SELECT * FROM Event_tbl", null);
+        return db.rawQuery("SELECT * FROM Event_tbl ORDER BY eventDate ASC", null);
     }
-
-
 
     public boolean updateEvent(int eventId, String eventName, String eventDate, String eventReminder) {
         SQLiteDatabase db = this.getWritableDatabase();
