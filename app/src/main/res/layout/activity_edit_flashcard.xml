@@ -8,12 +8,13 @@
     tools:context=".EditFlashcardActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="395dp"
         android:layout_height="83dp"
         android:background="@color/black"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="2dp"
-        tools:ignore="MissingConstraints">
+        tools:layout_editor_absoluteY="2dp">
 
         <ImageButton
             android:id="@+id/back_btn"
@@ -37,40 +38,13 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/fcfoldernametext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Flashcard Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/questiontext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/qna_edit_flashcard"
-        android:fontFamily="@font/poppins_bold"
-        android:paddingTop="6dp"
-        android:text="QUESTION"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fcfoldernametext" />
 
     <TextView
         android:id="@+id/answertext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/qna_edit_flashcard"
         android:fontFamily="@font/poppins_bold"
         android:paddingTop="6dp"
@@ -80,7 +54,24 @@
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fcfoldernametext" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <TextView
+        android:id="@+id/questiontext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/qna_edit_flashcard"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingTop="6dp"
+        android:text="QUESTION"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"

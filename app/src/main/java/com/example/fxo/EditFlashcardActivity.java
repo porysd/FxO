@@ -37,7 +37,6 @@ public class EditFlashcardActivity extends AppCompatActivity implements Recycler
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_flashcard);
         recyclerView = findViewById(R.id.recycler);
-        fcFolderNameText = findViewById(R.id.fcfoldernametext);
         backBtn = findViewById(R.id.back_btn);
 
         backBtn.setOnClickListener(view -> finish());
@@ -50,7 +49,7 @@ public class EditFlashcardActivity extends AppCompatActivity implements Recycler
 
         fcFolderID = User.getInstance().getFlashcardFolderID();
         fcFolderName = User.getInstance().getFlashcardFolderTitle();
-        fcFolderNameText.setText("fcfolderId: " + fcFolderID + " fcfolderName: " + fcFolderName);
+
 
         LinearLayoutManager lm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(lm);
