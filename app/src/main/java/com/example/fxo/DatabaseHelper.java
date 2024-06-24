@@ -287,5 +287,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int affectedRows = db.delete("Event_tbl", "eventID=?", new String[]{String.valueOf(eventId)});
         return affectedRows > 0;
     }
+
+    // Method to get all flashcards
+    public Cursor getAllFlashcards() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT flashcardfolderID, title FROM FlashcardFolders_tbl", null);
+    }
 }
 

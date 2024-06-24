@@ -53,7 +53,7 @@ public class HOME extends Fragment implements RecyclerViewInterface, FlashcardHo
         });
 
         seeAll.setOnClickListener(v -> {
-            Intent i = new Intent(getActivity(), FlashcardFolderActivity.class);
+            Intent i = new Intent(getActivity(), SeeAllFlashcardsActivity.class);
             startActivity(i);
         });
 

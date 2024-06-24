@@ -94,6 +94,8 @@ public class Nav extends AppCompatActivity {
 
         dialog.findViewById(R.id.Events).setOnClickListener(v -> {
             dialog.dismiss();
+            Intent i = new Intent(Nav.this, ScheduleActivity.class);
+            startActivity(i);
             Toast.makeText(Nav.this, "Events", Toast.LENGTH_SHORT).show();
         });
 

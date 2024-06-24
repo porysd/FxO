@@ -1,5 +1,8 @@
 package com.example.fxo;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -31,10 +34,7 @@ public class NotificationActivity extends AppCompatActivity {
         Users_DB = new DatabaseHelper(this);
         eventDetails = new ArrayList<>();
 
-
-
         backBtn = findViewById(R.id.back_btn);
-
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +42,7 @@ public class NotificationActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         recyclerView = findViewById(R.id.recyclerView_notifications);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NotificationEventAdapter(this, eventDetails);
