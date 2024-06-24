@@ -116,8 +116,8 @@ public class SignUP extends AppCompatActivity {
         TextView message = dialog.findViewById(R.id.dialog_message);
         TextView dialogButton = dialog.findViewById(R.id.dialog_button);
 
-        title.setText("WELCOME TO ECLIPSE, " + userName.getText().toString() + "!");
-        message.setText("Your journey to better learning and planning begings here.");
+        title.setText("WELCOME TO ECLIPSE, \n" + userName.getText().toString() + "!");
+        message.setText("Your journey to better \nlearning and planning \nbegins here.");
 
         SpannableString sht = new SpannableString("Let's Get Started!");
         sht.setSpan(new UnderlineSpan(), 0, sht.length(),0);

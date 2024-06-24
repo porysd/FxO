@@ -72,8 +72,7 @@ public class FlashcardFolderActivity extends AppCompatActivity implements Recycl
         });
 
         backBtn.setOnClickListener(v -> {
-            Intent i = new Intent(FlashcardFolderActivity.this, Nav.class);
-            startActivity(i);
+            finish();
         });
 
         // Load flashcard data

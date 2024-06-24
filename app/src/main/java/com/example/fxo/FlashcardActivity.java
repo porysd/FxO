@@ -22,8 +22,8 @@ public class FlashcardActivity extends AppCompatActivity {
     TextView noTableText;
     TextView frontCard;
     TextView backCard;
-    TextView fcName;
-    Button addFlashcardBtn, correctBtn, wrongBtn, flip, backToQuestion, easyBtn;
+    TextView fcName, nofc;
+    Button addFlashcardBtn, correctBtn, wrongBtn, flip, backToQuestion, easyBtn, retakebtn;
 
     ImageButton backBtn;
 
@@ -57,6 +57,8 @@ public class FlashcardActivity extends AppCompatActivity {
         backToQuestion = findViewById(R.id.back_to_question);
         easyBtn = findViewById(R.id.easy_btn);
         fcName = findViewById(R.id.fcName);
+        retakebtn = findViewById(R.id.retake_btn);
+        nofc = findViewById(R.id.nofc);
 
         // Initialize data lists
         myQuestions = new ArrayList<>();
@@ -77,6 +79,9 @@ public class FlashcardActivity extends AppCompatActivity {
         easyBtn.setVisibility(View.GONE);
         backToQuestion.setVisibility(View.GONE);
 
+        retakebtn.setVisibility(View.GONE);
+        nofc.setVisibility(View.GONE);
+
         frontCard.setVisibility(View.VISIBLE);
         backCard.setVisibility(View.GONE);
 
@@ -86,7 +91,9 @@ public class FlashcardActivity extends AppCompatActivity {
             frontCard.setText(myQuestions.get(index));
             backCard.setText(myAnswers.get(index));
         } else {
-            noTableText.setText("No questions available for this flashcard folder.");
+            wrongBtn.setEnabled(false);
+            easyBtn.setEnabled(false);
+            correctBtn.setEnabled(false);
             Toast.makeText(this, "No questions available", Toast.LENGTH_SHORT).show();
         }
 
@@ -142,7 +149,8 @@ public class FlashcardActivity extends AppCompatActivity {
             myQuestions.remove(0);
             myAnswers.remove(0);
             if(myQuestions.isEmpty()){
-                fcName.setText("No more flashcards");
+                retakebtn.setVisibility(View.VISIBLE);
+                nofc.setVisibility(View.VISIBLE);
                 frontCard.setVisibility(View.GONE);
                 backCard.setVisibility(View.GONE);
                 flip.setVisibility(View.GONE);
@@ -156,6 +164,11 @@ public class FlashcardActivity extends AppCompatActivity {
                 frontCard.setVisibility(View.VISIBLE);
                 backCard.setVisibility(View.GONE);
             }
+        });
+        retakebtn.setOnClickListener(view -> {
+            Intent i = getIntent();
+            finish();
+            startActivity(i);
         });
         // moves the current flashcard to index 4
         wrongBtn.setOnClickListener(v -> {
@@ -180,8 +193,7 @@ public class FlashcardActivity extends AppCompatActivity {
         });
 
         backBtn.setOnClickListener(v -> {
-            Intent i = new Intent(FlashcardActivity.this, FlashcardFolderActivity.class);
-            startActivity(i);
+            finish();
         });
         addFlashcardBtn.setOnClickListener(v -> {
             Intent i = new Intent(FlashcardActivity.this, AddFlashcardActivity.class);

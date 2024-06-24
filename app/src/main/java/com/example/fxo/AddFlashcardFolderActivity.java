@@ -85,7 +85,7 @@ public class AddFlashcardFolderActivity extends AppCompatActivity {
                 // Insert flashcard folder data into the database
                 boolean insert = Users_DB.insertFlashcardFolderData(title, subject, pos);
                 if(insert){
-                    Intent i = new Intent(AddFlashcardFolderActivity.this, FlashcardFolderActivity.class);
+                    Intent i = new Intent(AddFlashcardFolderActivity.this, AddFlashcardActivity.class);
                     User.getInstance().setFolderID(pos);
                     User.getInstance().setFolder(spinnerFolders.getSelectedItem().toString());
                     startActivity(i);

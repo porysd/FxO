@@ -181,6 +181,42 @@
             android:textColorHighlight="@color/white"
             android:textSize="30dp"
             android:textStyle="bold" />
+
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/retake_btn"
+        android:layout_width="251dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="212dp"
+        android:background="@drawable/gsbutton"
+        android:backgroundTint="#0D0E10"
+        android:text="Retake"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/white"
+        android:textSize="23dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/nofc"
+        android:layout_width="267dp"
+        android:layout_height="132dp"
+        android:layout_marginTop="240dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="YOU HAVE FINISHED THIS DECK"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

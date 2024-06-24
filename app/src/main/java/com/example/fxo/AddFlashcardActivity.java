@@ -60,7 +60,7 @@ public class AddFlashcardActivity extends AppCompatActivity {
         // Set onClick listener for the finish button
         finishBtn.setOnClickListener(view -> {
             // Navigate back to the flashcard folder activity
-            Intent i = new Intent(AddFlashcardActivity.this, FlashcardActivity.class);
+            Intent i = new Intent(AddFlashcardActivity.this, FlashcardFolderActivity.class);
             startActivity(i);
         });
     }

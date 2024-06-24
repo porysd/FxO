@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -114,22 +115,43 @@ public class FlashcardHomeAdapter extends RecyclerView.Adapter<FlashcardHomeAdap
         }
     }
     private void confirmDelete(int fcfolderID, int position) {
+        // Inflate custom dialog layout
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Confirm Delete");
-        builder.setMessage("Are you sure you want to delete this record?");
-        builder.setPositiveButton("Yes", (dialogInterface, i) -> {
-            boolean deleted = Users_DB.deleteData(String.valueOf(fcfolderID));
-            if (deleted) {
-                flashcardFoldersTitle.remove(position);
-                notifyItemRemoved(position);
-                Toast.makeText(context, "Record deleted successfully", Toast.LENGTH_SHORT).show();
-                Users_DB.resetAutoIncrement();
-            } else {
-                Toast.makeText(context, "Failed to delete record", Toast.LENGTH_SHORT).show();
+        builder.setView(dialogView);
+
+        TextView dialogMessage = dialogView.findViewById(R.id.dialog_message);
+        Button buttonYes = dialogView.findViewById(R.id.dialog_button_yes);
+        Button buttonNo = dialogView.findViewById(R.id.dialog_button_no);
+
+        AlertDialog dialog = builder.create();
+
+        buttonYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean deleted = Users_DB.deleteData(String.valueOf(fcfolderID));
+                if (deleted) {
+                    flashcardFoldersTitle.remove(position);
+                    notifyItemRemoved(position);
+                    Toast.makeText(context, "Record deleted successfully", Toast.LENGTH_SHORT).show();
+                    Users_DB.resetAutoIncrement();
+                } else {
+                    Toast.makeText(context, "Failed to delete record", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss(); // Dismiss dialog after action
             }
         });
-        builder.setNegativeButton("No", null);
-        builder.show();
+
+        buttonNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss(); // Dismiss dialog if "No" button is clicked
+            }
+        });
+
+        dialog.show();
     }
 }
+
 

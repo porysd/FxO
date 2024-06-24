@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -26,7 +27,7 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
     String fcFolderTitle;
     DatabaseHelper Users_DB;
 
-    public FlashcardFolderAdapter(Context context, List<String> flashcardFoldersTitle, List<Integer> flashcardFoldersID, RecyclerViewInterface recyclerViewInterface){
+    public FlashcardFolderAdapter(Context context, List<String> flashcardFoldersTitle, List<Integer> flashcardFoldersID, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.flashcardFoldersTitle = flashcardFoldersTitle;
         this.flashcardFoldersID = flashcardFoldersID;
@@ -37,7 +38,7 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
     @NonNull
     @Override
     public FlashcardFolderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.flashcardfolder_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.flashcardfolder_item, parent, false);
         return new ViewHolder(view, recyclerViewInterface);
     }
 
@@ -53,9 +54,10 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
         return flashcardFoldersTitle.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         ImageButton moreOptionsButton;
+
         public ViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
@@ -64,10 +66,10 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(recyclerViewInterface !=  null){
+                    if (recyclerViewInterface != null) {
                         int pos = getAdapterPosition();
 
-                        if (pos !=  RecyclerView.NO_POSITION){
+                        if (pos != RecyclerView.NO_POSITION) {
                             recyclerViewInterface.onItemClick(pos);
                         }
                     }
@@ -116,22 +118,43 @@ public class FlashcardFolderAdapter extends RecyclerView.Adapter<FlashcardFolder
             });
         }
     }
+
     private void confirmDelete(int fcfolderID, int position) {
+        // Inflate custom dialog layout
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.delete_dialog, null);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Confirm Delete");
-        builder.setMessage("Are you sure you want to delete this record?");
-        builder.setPositiveButton("Yes", (dialogInterface, i) -> {
-            boolean deleted = Users_DB.deleteData(String.valueOf(fcfolderID));
-            if (deleted) {
-                flashcardFoldersTitle.remove(position);
-                notifyItemRemoved(position);
-                Toast.makeText(context, "Record deleted successfully", Toast.LENGTH_SHORT).show();
-                Users_DB.resetAutoIncrement();
-            } else {
-                Toast.makeText(context, "Failed to delete record", Toast.LENGTH_SHORT).show();
+        builder.setView(dialogView);
+
+        TextView dialogMessage = dialogView.findViewById(R.id.dialog_message);
+        Button buttonYes = dialogView.findViewById(R.id.dialog_button_yes);
+        Button buttonNo = dialogView.findViewById(R.id.dialog_button_no);
+
+        AlertDialog dialog = builder.create();
+
+        buttonYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean deleted = Users_DB.deleteData(String.valueOf(fcfolderID));
+                if (deleted) {
+                    flashcardFoldersTitle.remove(position);
+                    notifyItemRemoved(position);
+                    Toast.makeText(context, "Record deleted successfully", Toast.LENGTH_SHORT).show();
+                    Users_DB.resetAutoIncrement();
+                } else {
+                    Toast.makeText(context, "Failed to delete record", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss(); // Dismiss dialog after action
             }
         });
-        builder.setNegativeButton("No", null);
-        builder.show();
+
+        buttonNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss(); // Dismiss dialog if "No" button is clicked
+            }
+        });
+
+        dialog.show();
     }
 }

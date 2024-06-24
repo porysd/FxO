@@ -115,6 +115,7 @@
             android:forceHasOverlappingRendering="true"
             android:hint="Enter an answer here..."
             android:inputType="text"
+            android:paddingTop="25dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textColorHint="@color/cardview_dark_background" />
@@ -138,6 +139,7 @@
             android:layout_width="286dp"
             android:layout_height="156dp"
             android:ems="10"
+            android:paddingBottom="70dp"
             android:fontFamily="@font/poppins_bold"
             android:forceHasOverlappingRendering="true"
             android:hint="Enter an question here.."

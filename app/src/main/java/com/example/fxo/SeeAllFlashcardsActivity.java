@@ -40,12 +40,8 @@ public class SeeAllFlashcardsActivity extends AppCompatActivity {
         Users_DB = new DatabaseHelper(this);
         backBtn = findViewById(R.id.back_btn);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(SeeAllFlashcardsActivity.this, Nav.class);
-                startActivity(i);
-            }
+        backBtn.setOnClickListener(view -> {
+            finish();
         });
 
         flashcardTitles = new ArrayList<>();

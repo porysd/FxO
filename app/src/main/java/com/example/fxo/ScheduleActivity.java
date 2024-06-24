@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class ScheduleActivity extends AppCompatActivity {
     TextView eventDate, eventReminder;
      Button cancelButton, doneButton;
     DatePickerDialog datePickerDialog;
+    ImageButton backBtn;
     DatabaseHelper db;
     int hour, min;
     int userID;
@@ -45,6 +47,11 @@ public class ScheduleActivity extends AppCompatActivity {
         eventReminder = findViewById(R.id.event_reminders);
         cancelButton = findViewById(R.id.cancel_button);
         doneButton = findViewById(R.id.done_button);
+        backBtn = findViewById(R.id.goback);
+
+        backBtn.setOnClickListener(view -> {
+            finish();
+        });
 
         initDatePicker();
 
